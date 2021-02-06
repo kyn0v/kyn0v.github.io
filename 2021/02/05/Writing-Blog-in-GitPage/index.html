@@ -14,7 +14,7 @@
 <meta property="og:description" content="通过GitPage搭建博客多次，每次都有新感觉（大雾）。   问题分析 将网站的静态页面文件和博客构建源码文件分开提交，如何解决？ 如何配置个人域名？    解决思路针对博客部署问题方案一：双仓库 建立两个仓库：blogname.github.io和blogsource，分别存放博客静态页面和博客搭建源码。   本地与之对应建立两个目录并与远程仓库关联。   实际操作时，在blogsource目录">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-02-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-02-06T14:33:26.036Z">
+<meta property="article:modified_time" content="2021-02-06T15:04:56.760Z">
 <meta property="article:author" content="Kyno Yang">
 <meta name="twitter:card" content="summary">
   
@@ -138,13 +138,14 @@
     - `git add -A` 对仓库的增、删、改都敏感。  
     - `git add -u` 对仓库的删、改敏感  
 - Git的各分支独立，若要实现子文件夹的管理，最好使用多仓库，不宜使用多分支。或者使用SVN分支管理。  
-- 官方文档对于如何实现以及使用的描述更加详细（如[Hexo部署文档](https://hexo.io/zh-cn/docs/deployment)），在有官方文档且能读懂的情况下，官方文档优先，然后再考虑博客文档。 
+- 官方文档对于如何实现以及使用的描述更加详细（如[Hexo部署文档](https://hexo.io/zh-cn/docs/deployment)），在有官方文档且能读懂的情况下，官方文档优先，然后再考虑博客文档。
+- 完成上述部署步骤后，可能出现页面404的情况，此时在setting页面[随意设定一个theme](https://stackoverflow.com/questions/20895543/my-new-github-page-isnt-showing-up)即可。 
 </code></pre>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/02/05/Writing-Blog-in-GitPage/" data-id="ckkttify600011eq4fa3e5rvl" data-title="Blog in GitPage" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2021/02/05/Writing-Blog-in-GitPage/" data-id="ckktumz8q0001zttmge993bul" data-title="Blog in GitPage" class="article-share-link">Teilen</a>
       
       
       
