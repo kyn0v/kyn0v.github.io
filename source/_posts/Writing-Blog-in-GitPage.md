@@ -26,18 +26,11 @@ tags:
 2. 克隆远程博客仓库，本地切换到新建的source分支  
 3. 进入新建的临时文件夹，使用hexo init初始化，然后将临时文件夹中的内容拷贝到空博客仓库里,最后将本地仓库提交到远程source分支。至此，博客的source源码分支构建成功  
 4. 执行 hexo g 生成静态页面，将仓库中的(.git/ & .gitignore) 拷贝到public\目录里，进入该目录，切换到新建的master分支，将更新提交到远程master分支。至此，博客的master静态页面分支构建成功。  
-但是，这只在博客刚搭建好，第一次提交的时候管用！  
-因为Git的分支是独立的，虽然每次source分支执行hexo g会更新public\目录的内容，但是在切换到master分支后，\publib目录的内容也会随之切换到master版本，也就是未更新版本。即：master分支中的public\的内容不会随着source分支改变其中内容而改变，这也正是Git版本管理的特点之一，所以Git的分支不太适合「子文件夹」这种需求（需要git checkout --orphan master和git submodule结合起来使用，有些麻烦就没有尝试了，另外SVN的分支模型可能更符合这种需求描述）。  
+但是，这只在博客刚搭建好，第一次提交的时候管用！因为Git的分支是独立的，虽然每次source分支执行hexo g会更新public\目录的内容，但是在切换到master分支后，\publib目录的内容也会随之切换到master版本，也就是未更新版本。即：master分支中的public\的内容不会随着source分支改变其中内容而改变，这也正是Git版本管理的特点之一，所以Git的分支不太适合「子文件夹」这种需求（需要git checkout --orphan master和git submodule结合起来使用，有些麻烦就没有尝试了，另外SVN的分支模型可能更符合这种需求描述）。  
 如果使用这种方法，每次都要：先切换到source分支，拷贝public\中的内容，然后进入public\文件夹，切换到master分支，将刚才拷贝的内容覆盖当前目录（相当麻烦！）。  
 
 ### ~~方案四：双分支 + hexo-deployer-git~~  
-注：笔者最近重新部署博客时，hexo-deployer-git插件在生成.deploy_git\目录并正确拷贝后，不能按config文件的设定提交到远端指定分支，类似于该[issue](https://github.com/hexojs/hexo-deployer-git/issues/66)，未能找到原因，故不推荐该方法。
-
-
-沿着方案三的思路，目前的难点在于如何同步public\中的内容，我们可以通过使用hexo-deployer-git插件加以解决。  
-
-实现步骤（方案四）：  
-对于本地hexo环境的搭建（安装Node.js和Git）这里不做赘述,注意npm安装时添加`--save`参数。  
+沿着方案三的思路，目前的难点在于如何同步public\中的内容，我们可以通过使用hexo-deployer-git插件加以解决。具体步骤如下（对于本地hexo环境的搭建这里不做赘述，注意npm安装时添加`--save`参数）：  
 
 #### 第一步  
 在Github上新建一个仓库，命名为username.github.io，不添加README文件，不添加gitignore文件，添加Apache License 2.0。  
@@ -67,7 +60,7 @@ git checkout -b source
 
 至此，博客静态页面部署完成。  
 
-#### Tips  
+#### 第四步  
 在上述操作都完成后，把github中远程博客仓库的默认分支改为source，这样以后源码提交时就不用考虑远程切换到source分支了。  
 
 #### 重新部署  
@@ -93,4 +86,5 @@ git checkout -b source
 	- `git add -A` 对仓库的增、删、改都敏感。  
 	- `git add -u` 对仓库的删、改敏感  
 - Git的各分支独立，若要实现子文件夹的管理，最好使用多仓库，不宜使用多分支。或者使用SVN分支管理。  
-- 官方文档对于如何实现以及使用的描述更加详细（如[Hexo部署文档](https://hexo.io/zh-cn/docs/deployment)），在有官方文档且能读懂的情况下，官方文档优先，然后再考虑博客文档。     
+- 官方文档对于如何实现以及使用的描述更加详细（如[Hexo部署文档](https://hexo.io/zh-cn/docs/deployment)），在有官方文档且能读懂的情况下，官方文档优先，然后再考虑博客文档。 
+
