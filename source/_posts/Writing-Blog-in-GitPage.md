@@ -110,5 +110,6 @@ www.xxx.me ---> xxx.github.io
 	- `git add -A` 对仓库的增、删、改都敏感。  
 	- `git add -u` 对仓库的删、改敏感  
 - Git的各分支独立，若要实现子文件夹的管理，最好使用多仓库，不宜使用多分支。或者使用SVN分支管理。  
-- 官方文档对于如何实现以及使用的描述更加详细（如[Hexo部署文档](https://hexo.io/zh-cn/docs/deployment)），在有官方文档且能读懂的情况下，官方文档优先，然后再考虑博客文档。 
+- 官方文档对于如何实现以及使用的描述更加详细（如[Hexo部署文档](https://hexo.io/zh-cn/docs/deployment)），在有官方文档且能读懂的情况下，官方文档优先，然后再考虑博客文档。
+- 完成上述部署步骤后，可能出现页面404的情况，此时在setting页面[随意设定一个theme](https://stackoverflow.com/questions/20895543/my-new-github-page-isnt-showing-up)即可。 
 
