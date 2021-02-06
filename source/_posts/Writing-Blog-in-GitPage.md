@@ -82,7 +82,9 @@ git checkout -b source
 将CI/CD（持续集成和持续部署）应用到GitPage中，可以通过脚本自动部署更新博客，提升任务效率。  
 具体步骤根据[官网教程](https://hexo.io/zh-cn/docs/github-pages.html)即可，操作时注意两点：  
 1. travis脚本中的分支名注意修改为main
-2. `.travis.yml`提交到远端后，CI就会触发，可以在travis-ci官网查看进度
+2. `.travis.yml`提交到远端后，CI就会触发，需要时间更新内容，可以在travis-ci官网查看进度
+3. 如果 commit 不想让 Travis 构建，那么就在 commit message 里加上ci skip即可:`git commit -m "[ci skip] first commit"
+`。
 
 ## 总结  
 - `git add -参数`  
