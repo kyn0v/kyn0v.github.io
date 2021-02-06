@@ -14,7 +14,7 @@
 <meta property="og:description" content="通过GitPage搭建博客多次，每次都有新感觉（大雾）。   问题分析问题是我想将网站的静态页面文件和博客构建源码文件分开提交，如何解决？   解决思路方案一：双仓库 建立两个仓库：blogname.github.io和blogsource，分别存放博客静态页面和博客搭建源码。   本地与之对应建立两个目录并与远程仓库关联。   实际操作时，在blogsource目录中执行hexo基本操作，生成博">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-02-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-02-06T09:18:13.264Z">
+<meta property="article:modified_time" content="2021-02-06T09:45:35.649Z">
 <meta property="article:author" content="Kyno Yang">
 <meta name="twitter:card" content="summary">
   
@@ -149,7 +149,8 @@
 <h3 id="方案五：双分支-Travis-CI"><a href="#方案五：双分支-Travis-CI" class="headerlink" title="方案五：双分支 + Travis CI"></a>方案五：双分支 + Travis CI</h3><p>将CI/CD（持续集成和持续部署）应用到GitPage中，可以通过脚本自动部署更新博客，提升任务效率。<br>具体步骤根据<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/github-pages.html">官网教程</a>即可，操作时注意两点：  </p>
 <ol>
 <li>travis脚本中的分支名注意修改为main</li>
-<li><code>.travis.yml</code>提交到远端后，CI就会触发，可以在travis-ci官网查看进度</li>
+<li><code>.travis.yml</code>提交到远端后，CI就会触发，需要时间更新内容，可以在travis-ci官网查看进度</li>
+<li>如果 commit 不想让 Travis 构建，那么就在 commit message 里加上ci skip即可:<code>git commit -m &quot;[ci skip] first commit&quot; </code>。</li>
 </ol>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
 <li><code>git add -参数</code>  <ul>
@@ -166,7 +167,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/02/05/Writing-Blog-in-GitPage/" data-id="ckkti92y90001y6yngekq2402" data-title="Blog in GitPage" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2021/02/05/Writing-Blog-in-GitPage/" data-id="ckktj89rl00010lqa1f5ghvt1" data-title="Blog in GitPage" class="article-share-link">Teilen</a>
       
       
       
@@ -175,15 +176,6 @@
   
     
 <nav id="article-nav">
-  
-    <a href="/2021/02/06/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
-      <div class="article-nav-title">
-        
-          Hello World
-        
-      </div>
-    </a>
   
   
     <a href="/2019/08/29/Learning-DenseBox/" id="article-nav-older" class="article-nav-link-wrap">
@@ -224,10 +216,6 @@
     <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
-        
-          <li>
-            <a href="/2021/02/06/hello-world/">Hello World</a>
-          </li>
         
           <li>
             <a href="/2021/02/05/Writing-Blog-in-GitPage/">Blog in GitPage</a>
