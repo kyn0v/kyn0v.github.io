@@ -8,6 +8,7 @@ branches:
     - main # build master branch only
 script:
   - hexo generate # generate static files
+  - echo "kyno.me" > CNAME # add CNAME file
 deploy:
   provider: pages
   skip-cleanup: true
