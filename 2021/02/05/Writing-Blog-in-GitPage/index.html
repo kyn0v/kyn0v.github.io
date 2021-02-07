@@ -14,7 +14,7 @@
 <meta property="og:description" content="通过GitPage搭建博客多次，每次都有新感觉（大雾）。   问题分析 将网站的静态页面文件和博客构建源码文件分开提交，如何解决？ 如何配置个人域名？    解决思路针对博客部署问题方案一：双仓库 建立两个仓库：blogname.github.io和blogsource，分别存放博客静态页面和博客搭建源码。   本地与之对应建立两个目录并与远程仓库关联。   实际操作时，在blogsource目录">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-02-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-02-07T01:57:07.433Z">
+<meta property="article:modified_time" content="2021-02-07T02:13:38.975Z">
 <meta property="article:author" content="Kyno Yang">
 <meta name="twitter:card" content="summary">
   
@@ -126,26 +126,25 @@
 <p>xxx.me —&gt; xxx.github.io<br><a target="_blank" rel="noopener" href="http://www.xxx.me/">www.xxx.me</a> —&gt; xxx.github.io</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当然也可以使用A记录，填写测试&#96;ping xxx.github.io&#96;时，显示的ip地址。通常为：</span><br></pre></td></tr></table></figure>
 <p>185.199.108.153<br>185.199.109.153<br>185.199.110.153<br>185.199.111.153</p>
-<pre><code>对于github仓库，可以在setting中设置`Custom domain`选项，然后更新，最后根据提示重新勾选`Enforce HTTPS`即可。同时，注意在`_config.yml`文件中将`url`项设置为自己的域名。
-
-### 邮箱设置问题
-对于个人域名邮箱服务，可以选用腾讯/网易企业邮，墙内使用较为方便。由于腾讯企业邮箱可以与微信互通，因此我选择了腾讯邮箱。具体步骤参考[官网](https://exmail.qq.com/)操作即可。注意一点：在给域名添加解析记录时，要求主机记录不需填写，但域名管理面板上显示此项必填，此时可以通过填写`@`解决。
-
-# Tips  
-- `git add -参数`  
-    - `git add *`中\*不是Git的一部分,它是一个由shell解释的通配符，该命令意味着添加当前目录中的所有文件，但以点开头的文件除外。  
-    - `git add .`在shell中没有特殊的意义，因此Git递归地添加了整个目录，包含了名字以点开头的文件。对仓库的增、改敏感。  
-    - `git add -A` 对仓库的增、删、改都敏感。  
-    - `git add -u` 对仓库的删、改敏感  
-- Git的各分支独立，若要实现子文件夹的管理，最好使用多仓库，不宜使用多分支。或者使用SVN分支管理。  
-- 官方文档对于如何实现以及使用的描述更加详细（如[Hexo部署文档](https://hexo.io/zh-cn/docs/deployment)），在有官方文档且能读懂的情况下，官方文档优先，然后再考虑博客文档。
-- 完成上述部署步骤后，可能出现页面404的情况，此时在setting页面随意设定一个theme[即可](https://stackoverflow.com/questions/20895543/my-new-github-page-isnt-showing-up)。
-</code></pre>
+<p>```<br>对于github仓库，可以在setting中设置 <code>Custom domain</code> 选项，然后更新，最后根据提示重新勾选 <code>Enforce HTTPS</code> 即可。<br>针对解决发布博客后自定义域名失效的问题，可以在 hexo 生成的博客的 source 目录下新建一个 CNAME 文件，然后在这个文件中填入域名。</p>
+<h3 id="邮箱设置问题"><a href="#邮箱设置问题" class="headerlink" title="邮箱设置问题"></a>邮箱设置问题</h3><p>对于个人域名邮箱服务，可以选用腾讯/网易企业邮，墙内使用较为方便。由于腾讯企业邮箱可以与微信互通，因此我选择了腾讯邮箱。具体步骤参考<a target="_blank" rel="noopener" href="https://exmail.qq.com/">官网</a>操作即可。注意一点：在给域名添加解析记录时，要求主机记录不需填写，但域名管理面板上显示此项必填，此时可以通过填写<code>@</code>解决。</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li><code>git add -参数</code>  <ul>
+<li><code>git add *</code>中*不是Git的一部分,它是一个由shell解释的通配符，该命令意味着添加当前目录中的所有文件，但以点开头的文件除外。  </li>
+<li><code>git add .</code>在shell中没有特殊的意义，因此Git递归地添加了整个目录，包含了名字以点开头的文件。对仓库的增、改敏感。  </li>
+<li><code>git add -A</code> 对仓库的增、删、改都敏感。  </li>
+<li><code>git add -u</code> 对仓库的删、改敏感  </li>
+</ul>
+</li>
+<li>Git的各分支独立，若要实现子文件夹的管理，最好使用多仓库，不宜使用多分支。或者使用SVN分支管理。  </li>
+<li>官方文档对于如何实现以及使用的描述更加详细（如<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/deployment">Hexo部署文档</a>），在有官方文档且能读懂的情况下，官方文档优先，然后再考虑博客文档。</li>
+<li>完成上述部署步骤后，可能出现页面404的情况，此时在setting页面随意设定一个theme<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/20895543/my-new-github-page-isnt-showing-up">即可</a>。</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kyno.me/2021/02/05/Writing-Blog-in-GitPage/" data-id="ckkuhxp4900010zt374e740un" data-title="Blog in GitPage" class="article-share-link">Teilen</a>
+      <a data-url="https://kyno.me/2021/02/05/Writing-Blog-in-GitPage/" data-id="ckkuiixry0001zopm04c289nd" data-title="Blog in GitPage" class="article-share-link">Teilen</a>
       
       
       
