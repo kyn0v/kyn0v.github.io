@@ -98,7 +98,7 @@ www.xxx.me ---> xxx.github.io
 185.199.110.153
 185.199.111.153
 ```
-对于github仓库，可以在setting中设置`Custom domain`选项，然后更新，最后根据提示重新勾选`Enforce HTTPS`即可。
+对于github仓库，可以在setting中设置`Custom domain`选项，然后更新，最后根据提示重新勾选`Enforce HTTPS`即可。同时，注意在`_config.yml`文件中将`url`项设置为自己的域名。
 
 ### 邮箱设置问题
 对于个人域名邮箱服务，可以选用腾讯/网易企业邮，墙内使用较为方便。由于腾讯企业邮箱可以与微信互通，因此我选择了腾讯邮箱。具体步骤参考[官网](https://exmail.qq.com/)操作即可。注意一点：在给域名添加解析记录时，要求主机记录不需填写，但域名管理面板上显示此项必填，此时可以通过填写`@`解决。
@@ -111,5 +111,5 @@ www.xxx.me ---> xxx.github.io
 	- `git add -u` 对仓库的删、改敏感  
 - Git的各分支独立，若要实现子文件夹的管理，最好使用多仓库，不宜使用多分支。或者使用SVN分支管理。  
 - 官方文档对于如何实现以及使用的描述更加详细（如[Hexo部署文档](https://hexo.io/zh-cn/docs/deployment)），在有官方文档且能读懂的情况下，官方文档优先，然后再考虑博客文档。
-- 完成上述部署步骤后，可能出现页面404的情况，此时在setting页面[随意设定一个theme](https://stackoverflow.com/questions/20895543/my-new-github-page-isnt-showing-up)即可。 
+- 完成上述部署步骤后，可能出现页面404的情况，此时在setting页面随意设定一个theme[即可](https://stackoverflow.com/questions/20895543/my-new-github-page-isnt-showing-up)。
 
