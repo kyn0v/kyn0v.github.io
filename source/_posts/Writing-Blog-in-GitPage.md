@@ -98,7 +98,7 @@ www.xxx.me ---> xxx.github.io
 185.199.110.153
 185.199.111.153
 ```
-对于github仓库，可以在setting中设置 `Custom domain` 选项，然后更新，最后根据提示重新勾选 `Enforce HTTPS`。同时，在`_travis.yml`的deploy项中添加`fqdn: xxx.me`，作用是deploy时生成CNAME文件。  
+对于github仓库，可以在setting中设置 `Custom domain` 选项，然后更新，最后根据提示重新勾选 `Enforce HTTPS`。同时，在`_travis.yml`的deploy项中添加`fqdn: xxx.me`，作用是deploy时生成CNAME文件，参考[官网](https://docs.travis-ci.com/user/deployment/pages/)。  
 
 ### 邮箱设置问题
 对于个人域名邮箱服务，可以选用腾讯/网易企业邮，墙内使用较为方便。由于腾讯企业邮箱可以与微信互通，因此我选择了腾讯邮箱。具体步骤参考[官网](https://exmail.qq.com/)操作即可。注意一点：在给域名添加解析记录时，要求主机记录不需填写，但域名管理面板上显示此项必填，此时可以通过填写`@`解决。
