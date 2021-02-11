@@ -1,0 +1,15 @@
+# config
+logo: /images/svdb.png
+keywords: "NUAAer, WHUTer, FanFouer, Music(Guitar, Keyboard, et al.), Reading, Basketball"
+# pubkey:
+menu:
+  Home: /
+  # Articles: /articles
+  # About: /about
+
+# Content
+excerpt_link: Read more
+
+# Miscellaneous
+rss: /atom.xml
+google_analytics:
