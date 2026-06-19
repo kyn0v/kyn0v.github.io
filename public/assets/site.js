@@ -47,4 +47,18 @@
     setInterval(() => { if (isNight() && Math.random() > 0.35) spawnMeteor(); }, 2600);
     setTimeout(() => { if (isNight()) spawnMeteor(); }, 1200);
   }
+
+  // ---------- 回到顶部 ----------
+  const toTop = document.getElementById("toTop");
+  if (toTop) {
+    const onScroll = () => {
+      toTop.classList.toggle("show", window.scrollY > 300);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    toTop.addEventListener("click", () => {
+      const behavior = reduceMotion ? "auto" : "smooth";
+      window.scrollTo({ top: 0, behavior });
+    });
+  }
 })();

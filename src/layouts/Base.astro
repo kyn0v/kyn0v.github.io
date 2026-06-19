@@ -29,6 +29,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   <slot />
 
+  <!-- back to top -->
+  <button class="to-top" id="toTop" aria-label="回到顶部" title="回到顶部">
+    <svg viewBox="0 0 24 24" role="img"><path d="M12 8.29l6.3 6.3a1 1 0 0 1-1.42 1.42L12 11.12l-4.88 4.89a1 1 0 0 1-1.42-1.42L12 8.29z"/></svg>
+  </button>
+
   <footer>
     © <span id="year"></span> Jian Yang · 配色致敬 <a href="https://github.com/probberechts/hexo-theme-cactus" target="_blank">cactus</a> 与 <a href="https://github.com/sjaakvandenberg/flexy" target="_blank">flexy</a>
   </footer>
