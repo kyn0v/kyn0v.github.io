@@ -88,7 +88,7 @@
 </div>
 
 <footer>
-  © <span id="year"></span> Jian Yang · 配色致敬 <a href="https://github.com/probberechts/hexo-theme-cactus" target="_blank">cactus</a> · 用一个 HTML 文件搭建
+  © <span id="year"></span> Jian Yang · 配色致敬 <a href="https://github.com/probberechts/hexo-theme-cactus" target="_blank">cactus</a> 与 <a href="https://github.com/sjaakvandenberg/flexy" target="_blank">flexy</a>
 </footer>
 
 <script>
@@ -105,30 +105,29 @@
   const ENTRIES = [
     // —— 代码项目（来自 github.com/kyn0v 真实仓库）——
     { date: "2026-06-19", type: "code",  title: "ghost-among-us · 跨端多人游戏", desc: "基于 uni-app 的跨端多人游戏，client / server 全栈 TypeScript 实现。", link: "https://github.com/kyn0v/ghost-among-us" },
-    { date: "2026-05-31", type: "code",  pinned: true, title: "Binwak · 城市漫步 Bingo 打卡", desc: "微信小程序版城市漫步 Bingo 打卡，用 TypeScript 开发，鼓励大家走出门探索城市。", link: "https://github.com/kyn0v/Binwak" },
-    { date: "2024-04-23", type: "code",  pinned: true, title: "TIB-Net · 微型无人机检测网络", desc: "发表论文配套代码：用于微小无人机检测的迭代式骨干网络，GitHub 收获 45★。", link: "https://github.com/kyn0v/TIB-Net" },
+    { date: "2026-05-31", type: "code",  pinned: true, title: "Binwak · 城市漫步 Bingo 打卡", desc: "CityWalk Bingo！", link: "https://github.com/kyn0v/Binwak" },
+    { date: "2020-08-18", type: "code",  pinned: true, title: "TIB-Net · 微型无人机检测网络", desc: "论文配套代码，迭代式骨干网络。", link: "https://github.com/kyn0v/TIB-Net" },
     { date: "2022-01-02", type: "blog",  title: "React Tutorial 解析", desc: "跟着官方教程做了个井字棋小游戏，梳理 React component 的组织方式。", link: "posts/react-tutorial.html" },
-    { date: "2021-02-15", type: "code",  title: "json-parser · 手写 JSON 解析器", desc: "参照 miloyip 的教程，用 C++ 从零实现一个 JSON 解析器，理解递归下降。", link: "https://github.com/kyn0v/json-parser" },
-    { date: "2021-02-06", type: "blog",  title: "用 GitHub Pages 搭博客", desc: "记录用 Hexo + GitHub Pages 搭博客的踩坑：双仓库部署与个人域名配置。", link: "posts/writing-blog-in-gitpage.html" },
+    { date: "2020-10-03", type: "code",  title: "json-parser · 手写 JSON 解析器", desc: "参照 miloyip 的教程，用 C++ 从零实现一个 JSON 解析器，理解递归下降。", link: "https://github.com/kyn0v/json-parser" },
+    { date: "2021-02-06", type: "blog",  pinned: true, title: "用 GitHub Pages 搭博客", desc: "记录用 Hexo + GitHub Pages 搭博客的踩坑。", link: "posts/writing-blog-in-gitpage.html" },
     { date: "2019-01-20", type: "code",  title: "HandsOnDeepLearning · 动手学深度学习", desc: "跟着《动手学深度学习》做的 Jupyter Notebook 实践笔记。", link: "https://github.com/kyn0v/HandsOnDeepLearning" },
     { date: "2017-06-28", type: "code",  title: "OSDIY · 自制操作系统", desc: "读《30 天自制操作系统》，用 C 一步步实现一个简单 OS。", link: "https://github.com/kyn0v/OSDIY" },
     { date: "2017-01-12", type: "code",  title: "course_experiments · 课程实验", desc: "本科期间一些课程的 C++ 实验代码合集。", link: "https://github.com/kyn0v/course_experiments" },
-    { date: "2019-08-29", type: "blog",  pinned: true, title: "DenseBox 代码解析", desc: "照着 GitHub 上的实现复现了 DenseBox 目标检测网络，梳理整体结构与训练流程。", link: "posts/learning-densebox.html" },
+    { date: "2019-08-29", type: "blog",  title: "DenseBox 代码解析", desc: "照着 GitHub 上的实现复现了 DenseBox 目标检测网络，梳理整体结构与训练流程。", link: "posts/learning-densebox.html" },
     // —— 视频：B 站投稿（来自 space.bilibili.com/12334638，多为吉他/音乐 cover）——
-    { date: "2026-01-07", type: "video", pinned: true, title: "《Sins Of The Father》尾奏cover", desc: "B 站投稿 · 时长 02:10 · 155 次播放。", link: "https://www.bilibili.com/video/BV1pvimBhEbH" },
+    { date: "2026-01-07", type: "video", title: "《Sins Of The Father》尾奏cover", desc: "B 站投稿 · 时长 02:10 · 155 次播放。", link: "https://www.bilibili.com/video/BV1pvimBhEbH" },
     { date: "2025-04-20", type: "video", title: "《好不容易》-cover", desc: "B 站投稿 · 时长 01:35 · 54 次播放。", link: "https://www.bilibili.com/video/BV1jP58zAE3w" },
-    { date: "2024-07-29", type: "video", title: "快乐の夏天", desc: "B 站投稿 · 时长 04:04 · 27 次播放。", link: "https://www.bilibili.com/video/BV1HYvPe8EjD" },
+    { date: "2024-07-29", type: "video", pinned: true, title: "快乐の夏天", desc: "石台夏日", link: "https://www.bilibili.com/video/BV1HYvPe8EjD" },
     { date: "2024-07-07", type: "video", title: "《搬家》cover-补票", desc: "B 站投稿 · 时长 04:31 · 118 次播放。", link: "https://www.bilibili.com/video/BV1AFhQe9EDN" },
-    { date: "2024-02-10", type: "video", title: "我们的冷耍黄金转场", desc: "B 站投稿 · 时长 04:50 · 149 次播放。", link: "https://www.bilibili.com/video/BV1hB421z72Z" },
+    { date: "2024-02-10", type: "video", pinned: true, title: "我们的冷耍黄金转场", desc: "酷玩曼谷演出", link: "https://www.bilibili.com/video/BV1hB421z72Z" },
     { date: "2022-12-24", type: "video", title: "Bubble Gum (Cover)", desc: "B 站投稿 · 时长 01:30 · 34 次播放。", link: "https://www.bilibili.com/video/BV14M41117Cd" },
     { date: "2022-10-16", type: "video", title: "采石-万青 (Cover)", desc: "B 站投稿 · 时长 03:18 · 39 次播放。", link: "https://www.bilibili.com/video/BV1Ht4y1F7mJ" },
     { date: "2022-10-07", type: "video", title: "Autumn Leaves - Eric Clapton (尾奏Cover)", desc: "B 站投稿 · 时长 02:03 · 33 次播放。", link: "https://www.bilibili.com/video/BV1z8411x7DG" },
     { date: "2022-09-18", type: "video", title: "狂人皮埃罗插曲 (Cover)", desc: "B 站投稿 · 时长 03:53 · 156 次播放。", link: "https://www.bilibili.com/video/BV1Sd4y1u75r" },
     { date: "2022-08-27", type: "video", title: "No Surprises - Radiohead（Cover/On-Call Song）", desc: "B 站投稿 · 时长 03:43 · 49 次播放。", link: "https://www.bilibili.com/video/BV1aT411F7ji" },
     // —— 播客：小宇宙《家庭自制》自制节目 ——
-    { date: "2025-11-24", type: "podcast", pinned: true, title: "播客《家庭自制》", desc: "在小宇宙主理的播客，「一周音乐分享」系列已更新 25 期，感受绝对真实。", link: "https://www.xiaoyuzhoufm.com/podcast/67dff6130ff066afdbb00285" },
+    { date: "2025-11-24", type: "podcast", pinned: true, title: "播客《家庭自制》", desc: "感受绝对真实，欢迎来到家庭自制", link: "https://www.xiaoyuzhoufm.com/podcast/67dff6130ff066afdbb00285" },
     // —— 音乐：网易云 youngjjj 亲手编排的歌单（简介取自歌单本身）——
-    { date: "2025-09-03", type: "music", title: "家庭自制", desc: "", link: "https://music.163.com/playlist?id=14238458166" },
     { date: "2025-05-05", type: "music", title: "快乐小分队 — 未知欢愉", desc: "Joy Division Unknown Pleasures · 一份阅读札记", link: "https://music.163.com/playlist?id=13671191614" },
     { date: "2025-03-02", type: "music", title: "Philosophy of Aging", desc: "时间的魔法", link: "https://music.163.com/playlist?id=13389930275" },
     { date: "2024-08-02", type: "music", title: "老歌新唱", desc: "", link: "https://music.163.com/playlist?id=12390506204" },
@@ -136,11 +135,10 @@
     { date: "2023-10-09", type: "music", title: "中文嘿怕", desc: "", link: "https://music.163.com/playlist?id=8791173824" },
     { date: "2023-09-17", type: "music", title: "然而，很美 (But Beautiful)", desc: "「莱斯特的音乐柔软而慵懒，但其中总隐含着某种尖锐……」", link: "https://music.163.com/playlist?id=8737611645" },
     { date: "2023-01-15", type: "music", title: "那些夏天", desc: "乐夏记忆点", link: "https://music.163.com/playlist?id=8060476453" },
-    { date: "2022-12-29", type: "music", pinned: true, title: "时代的噪音 (The Sound of Resistance)", desc: "从迪伦到 U2 的抵抗之声", link: "https://music.163.com/playlist?id=7998818478" },
+    { date: "2022-12-29", type: "music", title: "时代的噪音 (The Sound of Resistance)", desc: "从迪伦到 U2 的抵抗之声", link: "https://music.163.com/playlist?id=7998818478" },
     { date: "2022-11-17", type: "music", title: "爱的一种", desc: "", link: "https://music.163.com/playlist?id=7752222463" },
     { date: "2022-01-04", type: "music", title: "Real.Guitar", desc: "", link: "https://music.163.com/playlist?id=7221856852" },
     { date: "2021-04-08", type: "music", title: "毕业时", desc: "小小少年，又毕业了。", link: "https://music.163.com/playlist?id=6701421943" },
-    { date: "2016-10-30", type: "music", title: "储物仓", desc: "什么都有", link: "https://music.163.com/playlist?id=498391825" },
     { date: "2016-01-17", type: "music", title: "电影配乐", desc: "配乐承载着电影的气息", link: "https://music.163.com/playlist?id=155449195" },
     { date: "2015-03-09", type: "music", title: "youngjjj 喜欢的音乐", desc: "", link: "https://music.163.com/playlist?id=57196439" },
   ];
@@ -150,7 +148,9 @@
   // ---------- 主页：渲染 Pin 的精选卡片 ----------
   function renderPinned() {
     const box = document.getElementById("pinned");
-    const items = ENTRIES.filter(e => e.pinned);
+    const items = ENTRIES.filter(e => e.pinned)
+      .slice()
+      .sort((a, b) => b.date.localeCompare(a.date));
     if (items.length === 0) {
       box.innerHTML = '<div class="empty">还没有 Pin 任何内容 ~</div>';
       return;
@@ -160,7 +160,10 @@
       return `
         <a href="${e.link}" target="_blank">
           <div class="pin-card" style="--type-color:${meta.color}">
-            <span class="badge" title="${meta.label}">${meta.emoji}</span>
+            <div class="pin-top">
+              <span class="badge" title="${meta.label}">${meta.emoji}</span>
+              <span class="pin-date">${e.date}</span>
+            </div>
             <h3>${e.title}</h3>
             ${e.desc ? `<p>${e.desc}</p>` : ""}
             <span class="link-hint">查看 →</span>

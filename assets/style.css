@@ -13,12 +13,12 @@
     --radius: 8px;
 
     /* category colors (harmonised with cactus) */
-    --c-code:  #2bbc8a;
+    --c-code:  #a371f7;
     --c-video: #d480aa;
-    --c-blog:  #e0c46c;
+    --c-blog:  #2D963D;
     --c-photo: #82aaff;
-    --c-music: #e0795a;
-    --c-podcast: #b89aff;
+    --c-music: #e35454;
+    --c-podcast: #25B4E1;
 
     --sky-opacity: 1;
 
@@ -42,12 +42,12 @@
     --accent: #1a8f66;     /* 加深的墨绿，纸上更清晰 */
     --quote: #ab2251;
 
-    --c-code:  #1a8f66;
+    --c-code:  #6f42c1;
     --c-video: #c2356a;
-    --c-blog:  #9a6a06;
+    --c-blog:  #237a30;
     --c-photo: #2f5c8a;
-    --c-music: #b5502f;
-    --c-podcast: #6a4fb5;
+    --c-music: #C20C0C;
+    --c-podcast: #1789b5;
 
     --sky-opacity: 0;
   }
@@ -294,11 +294,21 @@
     border-color: var(--type-color, var(--accent));
     transform: translateY(-2px);
   }
+  .pin-card .pin-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
   .pin-card .badge {
     display: inline-block;
     font-size: 1.15rem;
     line-height: 1;
-    margin-bottom: 8px;
+  }
+  .pin-card .pin-date {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-dim);
   }
   .pin-card h3 { font-size: 1.02rem; font-weight: 600; margin-bottom: 5px; color: var(--text); }
   .pin-card p { font-size: 0.86rem; color: var(--text-dim); }
@@ -560,3 +570,30 @@
   }
   .post-body th { background: var(--bg-soft); }
   .post-body hr { border: none; border-top: 1px solid var(--border-soft); margin: 1.6em 0; }
+
+  /* ===========================================================
+     Responsive · 平板与手机适配
+     =========================================================== */
+  @media (max-width: 640px) {
+    .wrap { padding: 52px 16px 64px; }
+    .hero { gap: 14px; }
+    .avatar, .avatar img { width: 64px; height: 64px; }
+    .hero h1 { font-size: 1.3rem; }
+    .theme-toggle { top: 12px; right: 12px; width: 36px; height: 36px; }
+    /* 卡片单列，避免窄屏溢出 */
+    .pinned-grid { grid-template-columns: 1fr; }
+    /* Tab 可横向滚动，不换行挤压 */
+    .tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .tab { white-space: nowrap; padding: 8px 12px; }
+    /* 时间线左缩进收紧 */
+    .timeline { padding-left: 20px; }
+    .entry::before { left: -20px; }
+  }
+
+  @media (max-width: 400px) {
+    .wrap { padding: 48px 12px 56px; }
+    .hero h1 { font-size: 1.18rem; }
+    .socials { gap: 6px; }
+    .socials a { width: 36px; height: 36px; }
+    .post-header h1 { font-size: 1.35rem; }
+  }
