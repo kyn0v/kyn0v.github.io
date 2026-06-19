@@ -1,14 +1,22 @@
-# Jian Yang · 个人名片
+# Jian Yang · 个人名片 & 博客
 
-一个零依赖的单文件个人名片 / 作品集网站。配色致敬 [cactus](https://github.com/probberechts/hexo-theme-cactus)，背景流星效果复刻自旧站 kyn0v.github.io。
+一个零构建的个人名片 / 作品集 + 博客站点。配色致敬 [cactus](https://github.com/probberechts/hexo-theme-cactus)，背景流星效果复刻自旧站 kyn0v.github.io。
 
 ```
 .
-├── index.html          # 整个网站（HTML + CSS + JS 全部内嵌）
-└── assets/
-    ├── avatar.jpg      # 头像
-    └── xiaoyuzhou.png  # 小宇宙 logo
+├── index.html                # 首页名片（主页 + 时间线两个 Tab）
+├── assets/
+│   ├── style.css             # 全站共享样式（配色 / 字体 / 流星 / 文章排版）
+│   ├── site.js               # 全站共享脚本（日夜切换 / 流星 / 防爬邮箱）
+│   ├── avatar.jpg            # 头像
+│   └── xiaoyuzhou.png        # 小宇宙 logo
+└── posts/                    # 博客文章（与名片同款风格）
+    ├── react-tutorial.html
+    ├── writing-blog-in-gitpage.html
+    └── learning-densebox.html
 ```
+
+首页和所有文章页共用 `assets/style.css` 与 `assets/site.js`，因此**风格完全统一**，日夜主题、流星背景在文章页同样生效。
 
 ## 它能不能托管在 GitHub Pages？
 
@@ -54,6 +62,14 @@ GitHub 仓库 → Settings → Pages → Source 选 `main` 分支 / 根目录。
 分类对应的 emoji 在上方 `TYPE_META` 里定义，可自行调整。
 
 保存后刷新即可，无需任何构建或安装。
+
+## 维护：怎么写一篇新博客？
+
+1. 复制 `posts/` 里任意一篇 `.html` 作为模板，改名为新文章（如 `posts/my-post.html`）。
+2. 替换 `<h1>` 标题、`📅 日期`、`<article class="post-body">` 里的正文（用 `<h2> <p> <pre><code> <ul>` 等普通标签即可，样式已统一）。
+3. 在 `index.html` 的 `ENTRIES` 里加一条 `type: "blog"`，`link` 指向 `posts/my-post.html`。
+
+文章页自动继承名片的配色、字体、日夜切换和流星背景。
 
 ## 本地预览
 
