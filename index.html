@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jian Yang · 业余作品名片</title>
+<meta name="description" content="Kyno 的个人名片：记录业余时间的 coding、视频剪辑、博客与摄影作品。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+  :root {
+    /* ---- Cactus DARK palette (night / meteor) ---- */
+    --bg: #1d1f21;
+    --bg-soft: #212325;
+    --card: #25282b;
+    --border: #908d8d;
+    --border-soft: #34373b;
+    --text: #c9cacc;
+    --text-dim: #908d8d;
+    --link: #d480aa;       /* cactus pink */
+    --accent: #2bbc8a;     /* cactus green */
+    --quote: #ccffb6;
+    --radius: 8px;
+
+    /* category colors (harmonised with cactus) */
+    --c-code:  #2bbc8a;
+    --c-video: #d480aa;
+    --c-blog:  #e0c46c;
+    --c-photo: #82aaff;
+    --c-music: #e0795a;
+    --c-podcast: #b89aff;
+
+    --sky-opacity: 1;
+
+    /* fonts: Latin/code keep geek monospace, Chinese reads in 霞鹜文楷 */
+    --font-mono: "Menlo", "Meslo LG", "SFMono-Regular", "Consolas", "Liberation Mono", monospace;
+    --font-body: "Menlo", "Meslo LG", "SFMono-Regular", "Consolas",
+                 "Noto Sans SC", "PingFang SC", "Hiragino Sans GB",
+                 "Microsoft YaHei", "Liberation Mono", monospace;
+  }
+
+  /* ---- Cactus LIGHT palette (day) · 暖读纸质色 ---- */
+  [data-theme="light"] {
+    --bg: #f7efd8;
+    --bg-soft: #eee2bf;
+    --card: #fbf5e4;
+    --border: #6f6750;
+    --border-soft: #d8c9a0;
+    --text: #2e2a20;
+    --text-dim: #5f5743;
+    --link: #c2356a;       /* 加深的玫红 */
+    --accent: #1a8f66;     /* 加深的墨绿，纸上更清晰 */
+    --quote: #ab2251;
+
+    --c-code:  #1a8f66;
+    --c-video: #c2356a;
+    --c-blog:  #9a6a06;
+    --c-photo: #2f5c8a;
+    --c-music: #b5502f;
+    --c-podcast: #6a4fb5;
+
+    --sky-opacity: 0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.725;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
+    transition: background-color .4s ease, color .4s ease;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ===========================================================
+     Animated star background (recreated from kyn0v.github.io)
+     A tiled star SVG drifting diagonally + occasional meteors.
+     =========================================================== */
+  .sky {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    /* 100% 还原旧站：深邃午夜蓝渐变 */
+    background: linear-gradient(8deg, hsla(220,100%,12%,1), hsla(220,40%,4%,1) 50%);
+    opacity: var(--sky-opacity);
+    transition: opacity .4s ease;
+  }
+  .stars {
+    position: absolute;
+    top: -100%; left: -100%;
+    width: 300%; height: 300%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cg fill='%23ffffff'%3E%3Ccircle r='1.5' cy='72.5' cx='200.5'/%3E%3Ccircle r='.5' cy='59.5' cx='161.5'/%3E%3Ccircle r='.5' cy='95.5' cx='138.5'/%3E%3Ccircle r='1' cy='91' cx='107'/%3E%3Ccircle r='.5' cy='63.5' cx='74.5'/%3E%3Ccircle r='.5' cy='128.5' cx='63.5'/%3E%3Ccircle r='.5' cy='110.5' cx='50.5'/%3E%3Ccircle r='.5' cy='66.5' cx='23.5'/%3E%3Ccircle r='.5' cy='149.5' cx='45.5'/%3E%3Ccircle r='.5' cy='151.5' cx='92.5'/%3E%3Ccircle r='.5' cy='184.5' cx='110.5'/%3E%3Ccircle r='.5' cy='163.5' cx='128.5'/%3E%3Ccircle r='.5' cy='191.5' cx='.5'/%3E%3Ccircle r='.5' cy='200.5' cx='152.5'/%3E%3Ccircle r='.5' cy='174.5' cx='205.5'/%3E%3Ccircle r='1' cy='154' cx='214'/%3E%3Ccircle r='1' cy='34' cx='148'/%3E%3Ccircle r='.5' cy='29.5' cx='169.5'/%3E%3Ccircle r='.5' cy='19.5' cx='182.5'/%3E%3Ccircle r='.5' cy='43.5' cx='91.5'/%3E%3Ccircle r='.5' cy='8.5' cx='58.5'/%3E%3Ccircle r='.5' cy='212.5' cx='52.5'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 240px 240px;
+    animation: drift 8s linear infinite;
+  }
+  .stars.layer2 { display: none; }
+  @keyframes drift {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-240px, -240px, 0); }
+  }
+
+  /* meteors */
+  .meteor {
+    position: absolute;
+    top: 0; left: 0;
+    width: 140px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.9));
+    opacity: 0;
+    transform: rotate(35deg);
+    filter: drop-shadow(0 0 4px rgba(255,255,255,.5));
+  }
+  .meteor::after {
+    content: "";
+    position: absolute;
+    right: 0; top: -1px;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 6px 1px rgba(255,255,255,.8);
+  }
+  @keyframes shoot {
+    0%   { opacity: 0; transform: rotate(35deg) translateX(0); }
+    8%   { opacity: 1; }
+    100% { opacity: 0; transform: rotate(35deg) translateX(480px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stars, .meteor { animation: none !important; }
+    .meteor { display: none; }
+  }
+
+  /* ---- Theme toggle button ---- */
+  .theme-toggle {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    background: var(--bg-soft);
+    border: 1px solid var(--border-soft);
+    border-radius: 50%;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all .18s ease;
+  }
+  .theme-toggle:hover {
+    color: var(--link);
+    border-color: var(--link);
+    transform: rotate(20deg);
+  }
+  .theme-toggle svg { width: 20px; height: 20px; fill: currentColor; }
+  .theme-toggle .icon-sun  { display: none; }
+  .theme-toggle .icon-moon { display: block; }
+  [data-theme="light"] .theme-toggle .icon-sun  { display: block; }
+  [data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+  /* ===========================================================
+     Content
+     =========================================================== */
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 39rem;
+    margin: 0 auto;
+    padding: 64px 20px 80px;
+  }
+
+  /* ---- Hero / business card ---- */
+  .hero {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+  .avatar {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--bg-soft);
+    border: 1px solid var(--accent);
+    overflow: hidden;
+  }
+  .avatar img {
+    width: 76px;
+    height: 76px;
+    object-fit: cover;
+    object-position: center 35%;
+    display: block;
+  }
+  .hero h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+  .hero h1 .cursor {
+    color: var(--accent);
+    animation: blink 1.1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .hero .tagline {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin-top: 2px;
+  }
+
+  /* ---- Social links ---- */
+  .socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 44px;
+  }
+  .socials a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    color: var(--brand, var(--text-dim));
+    transition: all .18s ease;
+  }
+  .socials a svg {
+    width: 19px;
+    height: 19px;
+    fill: currentColor;
+  }
+  .socials a img {
+    width: 21px;
+    height: 21px;
+    border-radius: 5px;
+    display: block;
+  }
+  .socials a:hover {
+    border-color: var(--brand, var(--link));
+    transform: translateY(-2px);
+  }
+
+  /* ---- Tabs ---- */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid var(--border-soft);
+    margin-bottom: 28px;
+  }
+  .tab {
+    cursor: pointer;
+    padding: 8px 16px;
+    font-size: 0.92rem;
+    color: var(--text-dim);
+    border: none;
+    background: transparent;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color .15s ease, border-color .15s ease;
+    font-family: inherit;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    font-weight: 600;
+  }
+  .tab-panel { display: none; animation: fadeIn .35s ease; }
+  .tab-panel.active { display: block; }
+
+  /* ---- Pinned (home) ---- */
+  .pinned-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .pin-card {
+    background: var(--card);
+    border: 1px solid var(--border-soft);
+    border-top: 2px solid var(--type-color, var(--accent));
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    transition: border-color .18s ease, transform .18s ease;
+  }
+  .pin-card:hover {
+    border-color: var(--type-color, var(--accent));
+    transform: translateY(-2px);
+  }
+  .pin-card .badge {
+    display: inline-block;
+    font-size: 1.15rem;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .pin-card h3 { font-size: 1.02rem; font-weight: 600; margin-bottom: 5px; color: var(--text); }
+  .pin-card p { font-size: 0.86rem; color: var(--text-dim); }
+  .pin-card .link-hint {
+    font-size: 0.8rem;
+    color: var(--type-color, var(--accent));
+    margin-top: 8px;
+    display: inline-block;
+  }
+  .home-intro {
+    color: var(--text-dim);
+    font-size: 0.92rem;
+    margin-bottom: 22px;
+    line-height: 1.9;
+  }
+
+  /* ---- Filter chips ---- */
+  .section-label {
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+  }
+  .section-label::before { content: "// "; color: var(--accent); }
+  .filter-toggle {
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color .15s ease;
+  }
+  .filter-toggle:hover { color: var(--text); }
+  .filter-toggle:focus-visible { outline: 1px dashed var(--accent); outline-offset: 3px; }
+  .filter-toggle .caret {
+    font-size: 0.7rem;
+    transition: transform .2s ease;
+  }
+  .filter-toggle[aria-expanded="false"] .caret { transform: rotate(-90deg); }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    max-height: 200px;
+    transition: max-height .25s ease, opacity .2s ease, margin-bottom .25s ease;
+  }
+  .filters.collapsed {
+    max-height: 0;
+    opacity: 0;
+    margin-bottom: 0;
+  }
+  .chip {
+    cursor: pointer;
+    padding: 5px 13px;
+    border-radius: var(--radius);
+    background: transparent;
+    border: 1px solid var(--border-soft);
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    transition: all .15s ease;
+    user-select: none;
+  }
+  .chip:hover { color: var(--text); border-color: var(--border); }
+  .chip.active {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .chip .dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  /* ---- Timeline ---- */
+  .timeline {
+    position: relative;
+    padding-left: 26px;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 6px; top: 6px; bottom: 6px;
+    width: 1px;
+    background: var(--border-soft);
+  }
+  .entry {
+    position: relative;
+    margin-bottom: 24px;
+    animation: fadeIn .35s ease;
+  }
+  .entry::before {
+    content: "";
+    position: absolute;
+    left: -26px; top: 7px;
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--type-color, var(--accent));
+  }
+  .entry .date {
+    font-size: 0.76rem;
+    color: var(--text-dim);
+    margin-bottom: 5px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border-soft);
+    border-left: 2px solid var(--type-color, var(--accent));
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    transition: border-color .18s ease, transform .18s ease;
+  }
+  .card:hover {
+    border-color: var(--type-color, var(--accent));
+    transform: translateX(2px);
+  }
+  .card .badge {
+    display: inline-grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    font-size: 0.95rem;
+    border-radius: 50%;
+    margin-bottom: 7px;
+    background: color-mix(in srgb, var(--type-color, var(--accent)) 18%, transparent);
+    border: 1px solid var(--type-color, var(--accent));
+  }
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+  .card p {
+    font-size: 0.86rem;
+    color: var(--text-dim);
+  }
+  .card .link-hint {
+    font-size: 0.8rem;
+    color: var(--type-color, var(--accent));
+    margin-top: 8px;
+    display: inline-block;
+  }
+
+  .empty {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    padding: 18px 0;
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    margin-top: 56px;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+  }
+  footer a { color: var(--link); }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- theme toggle -->
+<button class="theme-toggle" id="themeToggle" aria-label="切换日夜模式" title="切换日夜模式">
+  <svg class="icon-moon" viewBox="0 0 24 24" role="img"><path d="M12.1 22c-5.5 0-10-4.5-10-10S6.6 2 12.1 2c.3 0 .6 0 .9.05a.75.75 0 0 1 .36 1.32 7 7 0 0 0 7.31 11.66.75.75 0 0 1 .98.98A10 10 0 0 1 12.1 22z"/></svg>
+  <svg class="icon-sun" viewBox="0 0 24 24" role="img"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.5 4.9l1.4-1.4 2.1 2.1-1.4 1.4L3.5 4.9zm13.5 13.5l1.4-1.4 2.1 2.1-1.4 1.4-2.1-2.1zM19.1 3.5l1.4 1.4-2.1 2.1-1.4-1.4 2.1-2.1zM5.6 17l1.4 1.4-2.1 2.1-1.4-1.4L5.6 17zM1 11h3v2H1v-2zm19 0h3v2h-3v-2z"/></svg>
+</button>
+
+<!-- animated star sky -->
+<div class="sky" id="sky">
+  <div class="stars"></div>
+  <div class="stars layer2"></div>
+</div>
+
+<div class="wrap">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="avatar"><img src="assets/avatar.jpg" alt="Jian Yang"></div>
+    <div>
+      <h1>Jian Yang<span class="cursor">_</span></h1>
+      <div class="tagline">「好奇心和直觉是我们的向导」</div>
+    </div>
+  </section>
+
+  <!-- Socials -->
+  <nav class="socials">
+    <a href="https://github.com/kyn0v" target="_blank" aria-label="GitHub" title="GitHub">
+      <svg viewBox="0 0 24 24" role="img"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    </a>
+    <a href="https://space.bilibili.com/12334638" target="_blank" aria-label="哔哩哔哩" title="哔哩哔哩" style="--brand:#FB7299">
+      <svg viewBox="0 0 24 24" role="img"><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c0-.373.129-.689.386-.947.258-.257.574-.386.947-.386zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373Z"/></svg>
+    </a>
+    <a href="https://www.xiaoyuzhoufm.com/podcast/67dff6130ff066afdbb00285" target="_blank" aria-label="小宇宙播客" title="小宇宙播客">
+      <img src="assets/xiaoyuzhou.png" alt="小宇宙播客">
+    </a>
+    <a href="https://y.music.163.com/m/user?id=57757556" target="_blank" aria-label="网易云音乐" title="网易云音乐" style="--brand:#C20C0C">
+      <svg viewBox="0 0 24 24" role="img"><path d="M13.046 9.388a3.919 3.919 0 0 0-.66.19c-.809.312-1.447.991-1.666 1.775a2.269 2.269 0 0 0-.074.81c.048.546.333 1.05.764 1.35a1.483 1.483 0 0 0 2.01-.286c.406-.531.355-1.183.24-1.636-.098-.387-.22-.816-.345-1.249a64.76 64.76 0 0 1-.269-.954zm-.82 10.07c-3.984 0-7.224-3.24-7.224-7.223 0-.98.226-3.02 1.884-4.822A7.188 7.188 0 0 1 9.502 5.6a.792.792 0 1 1 .587 1.472 5.619 5.619 0 0 0-2.795 2.462 5.538 5.538 0 0 0-.707 2.7 5.645 5.645 0 0 0 5.638 5.638c1.844 0 3.627-.953 4.542-2.428 1.042-1.68.772-3.931-.627-5.238a3.299 3.299 0 0 0-1.437-.777c.172.589.334 1.18.494 1.772.284 1.12.1 2.181-.519 2.989-.39.51-.956.888-1.592 1.064a3.038 3.038 0 0 1-2.58-.44 3.45 3.45 0 0 1-1.44-2.514c-.04-.467.002-.93.128-1.376.35-1.256 1.356-2.339 2.622-2.826a5.5 5.5 0 0 1 .823-.246l-.134-.505c-.37-1.371.25-2.579 1.547-3.007.329-.109.68-.145 1.025-.105.792.09 1.476.592 1.709 1.023.258.507-.096 1.153-.706 1.153a.788.788 0 0 1-.54-.213c-.088-.08-.163-.174-.259-.247a.825.825 0 0 0-.632-.166.807.807 0 0 0-.634.551c-.056.191-.031.406.02.595.07.256.159.597.217.82 1.11.098 2.162.54 2.97 1.296 1.974 1.844 2.35 4.886.892 7.233-1.197 1.93-3.509 3.177-5.889 3.177zM0 12c0 6.627 5.373 12 12 12s12-5.373 12-12S18.627 0 12 0 0 5.373 0 12Z"/></svg>
+    </a>
+    <a href="https://www.douban.com/people/kynov/" target="_blank" aria-label="豆瓣" title="豆瓣" style="--brand:#2D963D">
+      <svg viewBox="0 0 24 24" role="img"><path d="M.51 3.06h22.98V.755H.51V3.06Zm20.976 2.537v9.608h-2.137l-1.669 5.76H24v2.28H0v-2.28h6.32l-1.67-5.76H2.515V5.597h18.972Zm-5.066 9.608H7.58l1.67 5.76h5.501l1.67-5.76ZM18.367 7.9H5.634v5.025h12.733V7.9Z"/></svg>
+    </a>
+    <a id="email-link" href="#" data-user="kynov" data-domain="outlook.com" aria-label="Email" title="Email">
+      <svg viewBox="0 0 24 24" role="img"><path d="M1.5 4.5h21A1.5 1.5 0 0 1 24 6v12a1.5 1.5 0 0 1-1.5 1.5h-21A1.5 1.5 0 0 1 0 18V6a1.5 1.5 0 0 1 1.5-1.5zm.6 1.8L12 12.9l9.9-6.6H2.1zM22.2 7.8l-9.66 6.44a.9.9 0 0 1-1.08 0L1.8 7.8V18h20.4V7.8z"/></svg>
+    </a>
+  </nav>
+
+  <!-- Tabs -->
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tab="home">主页</button>
+    <button class="tab" data-tab="timeline">时间线</button>
+  </nav>
+
+  <!-- Home panel: pinned -->
+  <section class="tab-panel active" id="panel-home">
+    <p class="home-intro">嗨，我是 Jian。工作之外，我喜欢写点代码、读书观影、听播客、拍照片。<br>这里 Pin 了一些我自己比较满意的东西，更多记录在「时间线」里。</p>
+    <div class="pinned-grid" id="pinned"></div>
+  </section>
+
+  <!-- Timeline panel -->
+  <section class="tab-panel" id="panel-timeline">
+    <div class="section-label filter-toggle" id="filterToggle" role="button" tabindex="0" aria-expanded="true" aria-controls="filters">
+      分类筛选<span class="caret">▾</span>
+    </div>
+    <div class="filters" id="filters">
+      <span class="chip active" data-type="all">全部</span>
+      <span class="chip" data-type="code"><span class="dot" style="background:var(--c-code)"></span>⌨️ 代码</span>
+      <span class="chip" data-type="video"><span class="dot" style="background:var(--c-video)"></span>🎬 视频</span>
+      <span class="chip" data-type="blog"><span class="dot" style="background:var(--c-blog)"></span>📖 文字</span>
+      <span class="chip" data-type="photo"><span class="dot" style="background:var(--c-photo)"></span>📷 摄影</span>
+      <span class="chip" data-type="music"><span class="dot" style="background:var(--c-music)"></span>🎵 音乐</span>
+      <span class="chip" data-type="podcast"><span class="dot" style="background:var(--c-podcast)"></span>🎙️ 播客</span>
+    </div>
+    <div class="timeline" id="timeline"></div>
+  </section>
+
+</div>
+
+<footer>
+  © <span id="year"></span> Jian Yang · 配色致敬 <a href="https://github.com/probberechts/hexo-theme-cactus" target="_blank">cactus</a> · 用一个 HTML 文件搭建
+</footer>
+
+<script>
+  // ---------- Mock 数据：按时间倒序，每条一个 type ----------
+  const TYPE_META = {
+    code:  { emoji: "⌨️", label: "代码", color: "var(--c-code)" },
+    video: { emoji: "🎬", label: "视频", color: "var(--c-video)" },
+    blog:  { emoji: "📖", label: "文字", color: "var(--c-blog)" },
+    photo: { emoji: "📷", label: "摄影", color: "var(--c-photo)" },
+    music: { emoji: "🎵", label: "音乐", color: "var(--c-music)" },
+    podcast: { emoji: "🎙️", label: "播客", color: "var(--c-podcast)" },
+  };
+
+  const ENTRIES = [
+    // —— 代码项目（来自 github.com/kyn0v 真实仓库）——
+    { date: "2026-06-19", type: "code",  pinned: true, title: "Binwak · 城市漫步 Bingo 打卡", desc: "微信小程序版城市漫步 Bingo 打卡，用 TypeScript 开发，鼓励大家走出门探索城市。", link: "https://github.com/kyn0v/Binwak" },
+    { date: "2024-04-23", type: "code",  pinned: true, title: "TIB-Net · 微型无人机检测网络", desc: "发表论文配套代码：用于微小无人机检测的迭代式骨干网络，GitHub 收获 45★。", link: "https://github.com/kyn0v/TIB-Net" },
+    { date: "2022-01-02", type: "blog",  title: "React Tutorial 解析", desc: "跟着官方教程做了个井字棋小游戏，梳理 React component 的组织方式。", link: "https://kyn0v.github.io/2022/01/02/React-Tutorial/" },
+    { date: "2021-02-15", type: "code",  title: "json-parser · 手写 JSON 解析器", desc: "参照 miloyip 的教程，用 C++ 从零实现一个 JSON 解析器，理解递归下降。", link: "https://github.com/kyn0v/json-parser" },
+    { date: "2021-02-06", type: "blog",  title: "用 GitHub Pages 搭博客", desc: "记录用 Hexo + GitHub Pages 搭博客的踩坑：双仓库部署与个人域名配置。", link: "https://kyn0v.github.io/2021/02/05/Writing-Blog-in-GitPage/" },
+    { date: "2020-09-28", type: "code",  title: "design-pattern · 初探设计模式", desc: "用 C++ 实践常见的设计模式，边写边记笔记。", link: "https://github.com/kyn0v/design-pattern" },
+    { date: "2019-08-29", type: "blog",  pinned: true, title: "DenseBox 代码解析", desc: "照着 GitHub 上的实现复现了 DenseBox 目标检测网络，梳理整体结构与训练流程。", link: "https://kyn0v.github.io/2019/08/29/Learning-DenseBox/" },
+    // —— 视频：B 站投稿（来自 space.bilibili.com/12334638，多为吉他/音乐 cover）——
+    { date: "2026-01-07", type: "video", pinned: true, title: "《Sins Of The Father》尾奏cover", desc: "B 站投稿 · 时长 02:10 · 155 次播放。", link: "https://www.bilibili.com/video/BV1pvimBhEbH" },
+    { date: "2025-04-20", type: "video", title: "《好不容易》-cover", desc: "B 站投稿 · 时长 01:35 · 54 次播放。", link: "https://www.bilibili.com/video/BV1jP58zAE3w" },
+    { date: "2024-07-29", type: "video", title: "快乐の夏天", desc: "B 站投稿 · 时长 04:04 · 27 次播放。", link: "https://www.bilibili.com/video/BV1HYvPe8EjD" },
+    { date: "2024-07-07", type: "video", title: "《搬家》cover-补票", desc: "B 站投稿 · 时长 04:31 · 118 次播放。", link: "https://www.bilibili.com/video/BV1AFhQe9EDN" },
+    { date: "2024-02-10", type: "video", title: "我们的冷耍黄金转场", desc: "B 站投稿 · 时长 04:50 · 149 次播放。", link: "https://www.bilibili.com/video/BV1hB421z72Z" },
+    { date: "2022-12-24", type: "video", title: "Bubble Gum (Cover)", desc: "B 站投稿 · 时长 01:30 · 34 次播放。", link: "https://www.bilibili.com/video/BV14M41117Cd" },
+    { date: "2022-10-16", type: "video", title: "采石-万青 (Cover)", desc: "B 站投稿 · 时长 03:18 · 39 次播放。", link: "https://www.bilibili.com/video/BV1Ht4y1F7mJ" },
+    { date: "2022-10-07", type: "video", title: "Autumn Leaves - Eric Clapton (尾奏Cover)", desc: "B 站投稿 · 时长 02:03 · 33 次播放。", link: "https://www.bilibili.com/video/BV1z8411x7DG" },
+    { date: "2022-09-18", type: "video", title: "狂人皮埃罗插曲 (Cover)", desc: "B 站投稿 · 时长 03:53 · 156 次播放。", link: "https://www.bilibili.com/video/BV1Sd4y1u75r" },
+    { date: "2022-08-27", type: "video", title: "No Surprises - Radiohead（Cover/On-Call Song）", desc: "B 站投稿 · 时长 03:43 · 49 次播放。", link: "https://www.bilibili.com/video/BV1aT411F7ji" },
+    // —— 播客：小宇宙《家庭自制》自制节目 ——
+    { date: "2025-11-24", type: "podcast", pinned: true, title: "播客《家庭自制》", desc: "在小宇宙主理的播客，「一周音乐分享」系列已更新 25 期，感受绝对真实。", link: "https://www.xiaoyuzhoufm.com/podcast/67dff6130ff066afdbb00285" },
+    // —— 音乐：网易云 youngjjj 亲手编排的歌单（全部自建）——
+    { date: "2026-06-07", type: "music", title: "四季歌", desc: "2 首，刚起的小歌单。", link: "https://music.163.com/playlist?id=18024634098" },
+    { date: "2025-11-05", type: "music", title: "本周推荐", desc: "3 首，近期循环。", link: "https://music.163.com/playlist?id=17400667938" },
+    { date: "2025-09-03", type: "music", title: "家庭自制", desc: "161 首，像家里自己做的菜，私房口味。", link: "https://music.163.com/playlist?id=14238458166" },
+    { date: "2025-05-05", type: "music", title: "快乐小分队 — 未知欢愉", desc: "192 首，通向未知欢愉的快乐合集。", link: "https://music.163.com/playlist?id=13671191614" },
+    { date: "2025-03-02", type: "music", title: "Philosophy of Aging", desc: "17 首，关于变老这件事的音乐沉思。", link: "https://music.163.com/playlist?id=13389930275" },
+    { date: "2024-08-02", type: "music", title: "老歌新唱", desc: "16 首，熟悉旋律的另一种打开方式。", link: "https://music.163.com/playlist?id=12390506204" },
+    { date: "2024-07-13", type: "music", title: "陆上行舟 — 赫尔佐格谈音乐", desc: "22 首，跟着赫尔佐格的电影，听他镜头里的音乐。", link: "https://music.163.com/playlist?id=12301684051" },
+    { date: "2023-10-09", type: "music", title: "中文嘿怕", desc: "13 首，中文 Hip-Hop 私藏。", link: "https://music.163.com/playlist?id=8791173824" },
+    { date: "2023-09-17", type: "music", title: "然而，很美 (But Beautiful)", desc: "166 首爵士，献给那些「然而，很美」的瞬间。", link: "https://music.163.com/playlist?id=8737611645" },
+    { date: "2023-01-15", type: "music", title: "那些夏天", desc: "29 首，关于夏天的记忆。", link: "https://music.163.com/playlist?id=8060476453" },
+    { date: "2022-12-29", type: "music", pinned: true, title: "时代的噪音 (The Sound of Resistance)", desc: "173 首抗议与反叛之声，一张关于时代噪音的私藏歌单。", link: "https://music.163.com/playlist?id=7998818478" },
+    { date: "2022-11-17", type: "music", title: "爱的一种", desc: "32 首，爱有很多种，这是其中一种。", link: "https://music.163.com/playlist?id=7752222463" },
+    { date: "2022-01-04", type: "music", title: "Real.Guitar", desc: "11 首，纯粹的吉他声。", link: "https://music.163.com/playlist?id=7221856852" },
+    { date: "2021-04-08", type: "music", title: "毕业时", desc: "11 首，献给毕业的那个夏天。", link: "https://music.163.com/playlist?id=6701421943" },
+    { date: "2016-10-30", type: "music", title: "储物仓", desc: "2712 首，无所不装的音乐仓库。", link: "https://music.163.com/playlist?id=498391825" },
+    { date: "2016-01-17", type: "music", title: "电影配乐", desc: "57 首电影原声，光影之外的旋律记忆。", link: "https://music.163.com/playlist?id=155449195" },
+    { date: "2015-03-09", type: "music", title: "youngjjj 喜欢的音乐", desc: "136 首，从 2015 年开始攒下的红心歌曲。", link: "https://music.163.com/playlist?id=57196439" },
+  ];
+
+  let currentFilter = "all";
+
+  // ---------- 主页：渲染 Pin 的精选卡片 ----------
+  function renderPinned() {
+    const box = document.getElementById("pinned");
+    const items = ENTRIES.filter(e => e.pinned);
+    if (items.length === 0) {
+      box.innerHTML = '<div class="empty">还没有 Pin 任何内容 ~</div>';
+      return;
+    }
+    box.innerHTML = items.map(e => {
+      const meta = TYPE_META[e.type];
+      return `
+        <a href="${e.link}" target="_blank">
+          <div class="pin-card" style="--type-color:${meta.color}">
+            <span class="badge" title="${meta.label}">${meta.emoji}</span>
+            <h3>${e.title}</h3>
+            <p>${e.desc}</p>
+            <span class="link-hint">查看 →</span>
+          </div>
+        </a>`;
+    }).join("");
+  }
+
+  function render() {
+    const tl = document.getElementById("timeline");
+    const items = ENTRIES
+      .filter(e => currentFilter === "all" || e.type === currentFilter)
+      .slice()
+      .sort((a, b) => b.date.localeCompare(a.date));
+    if (items.length === 0) {
+      tl.innerHTML = '<div class="empty">这个分类暂时还没有作品 ~</div>';
+      return;
+    }
+    tl.innerHTML = items.map(e => {
+      const meta = TYPE_META[e.type];
+      return `
+        <div class="entry" style="--type-color:${meta.color}">
+          <div class="date">${e.date}</div>
+          <a href="${e.link}" target="_blank">
+            <div class="card">
+              <span class="badge" title="${meta.label}">${meta.emoji}</span>
+              <h3>${e.title}</h3>
+              <p>${e.desc}</p>
+              <span class="link-hint">查看 →</span>
+            </div>
+          </a>
+        </div>`;
+    }).join("");
+  }
+
+  document.getElementById("filters").addEventListener("click", (ev) => {
+    const chip = ev.target.closest(".chip");
+    if (!chip) return;
+    document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    currentFilter = chip.dataset.type;
+    render();
+  });
+
+  // ---------- 分类筛选：折叠 / 展开 ----------
+  (function () {
+    const toggle = document.getElementById("filterToggle");
+    const filters = document.getElementById("filters");
+    const KEY = "filters-collapsed";
+    function setCollapsed(collapsed) {
+      filters.classList.toggle("collapsed", collapsed);
+      toggle.setAttribute("aria-expanded", String(!collapsed));
+      localStorage.setItem(KEY, collapsed ? "1" : "0");
+    }
+    setCollapsed(localStorage.getItem(KEY) === "1");
+    toggle.addEventListener("click", () => {
+      setCollapsed(!filters.classList.contains("collapsed"));
+    });
+    toggle.addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter" || ev.key === " ") {
+        ev.preventDefault();
+        setCollapsed(!filters.classList.contains("collapsed"));
+      }
+    });
+  })();
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+  render();
+  renderPinned();
+
+  // ---------- Tab 切换：主页 / 时间线 ----------
+  (function () {
+    const tabs = document.getElementById("tabs");
+    tabs.addEventListener("click", (ev) => {
+      const tab = ev.target.closest(".tab");
+      if (!tab) return;
+      const name = tab.dataset.tab;
+      document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t === tab));
+      document.querySelectorAll(".tab-panel").forEach(p => {
+        p.classList.toggle("active", p.id === "panel-" + name);
+      });
+    });
+  })();
+
+  // ---------- 防爬邮箱：运行时拼接 mailto，源码中无完整明文 ----------
+  (function () {
+    const el = document.getElementById("email-link");
+    if (!el) return;
+    const addr = el.dataset.user + String.fromCharCode(64) + el.dataset.domain;
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "mailto:" + addr;
+    });
+  })();
+
+  // ---------- 日夜主题切换 ----------
+  (function () {
+    const root = document.documentElement;
+    const btn = document.getElementById("themeToggle");
+    const saved = localStorage.getItem("theme");
+    // 默认夜晚（流星）；尊重已保存的选择或系统偏好
+    const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+    const initial = saved || (prefersLight ? "light" : "dark");
+    if (initial === "light") root.setAttribute("data-theme", "light");
+    btn.addEventListener("click", () => {
+      const isLight = root.getAttribute("data-theme") === "light";
+      if (isLight) root.removeAttribute("data-theme");
+      else root.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", isLight ? "dark" : "light");
+    });
+  })();
+
+  // ---------- Meteors: occasional shooting stars (仅夜晚) ----------
+  const sky = document.getElementById("sky");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function spawnMeteor() {
+    const m = document.createElement("div");
+    m.className = "meteor";
+    m.style.top = Math.random() * 45 + "%";
+    m.style.left = Math.random() * 80 + "%";
+    const dur = 0.8 + Math.random() * 0.8;
+    m.style.animation = `shoot ${dur}s linear forwards`;
+    sky.appendChild(m);
+    setTimeout(() => m.remove(), dur * 1000 + 100);
+  }
+  function isNight() {
+    return document.documentElement.getAttribute("data-theme") !== "light";
+  }
+  if (!reduceMotion) {
+    setInterval(() => { if (isNight() && Math.random() > 0.35) spawnMeteor(); }, 2600);
+    setTimeout(() => { if (isNight()) spawnMeteor(); }, 1200);
+  }
+</script>
+</body>
+</html>
