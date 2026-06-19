@@ -1,85 +1,85 @@
 # Jian Yang · 个人名片 & 博客
 
-一个零构建的个人名片 / 作品集 + 博客站点。配色致敬 [cactus](https://github.com/probberechts/hexo-theme-cactus)，背景流星效果复刻自旧站 kyn0v.github.io。
+基于 [Astro](https://astro.build/) 的个人名片 / 作品集 + 博客站点。配色致敬 [cactus](https://github.com/probberechts/hexo-theme-cactus) 与 [flexy](https://github.com/sjaakvandenberg/flexy)，背景流星效果复刻自旧站 kyn0v.github.io。
+
+## 结构
 
 ```
-.
-├── index.html                # 首页名片（主页 + 时间线两个 Tab）
-├── assets/
-│   ├── style.css             # 全站共享样式（配色 / 字体 / 流星 / 文章排版）
-│   ├── site.js               # 全站共享脚本（日夜切换 / 流星 / 防爬邮箱）
-│   ├── avatar.jpg            # 头像
-│   └── xiaoyuzhou.png        # 小宇宙 logo
-└── posts/                    # 博客文章（与名片同款风格）
-    ├── react-tutorial.html
-    ├── writing-blog-in-gitpage.html
-    └── learning-densebox.html
+├── astro.config.mjs            # Astro 配置
+├── public/assets/              # 静态资源（原样输出，不经构建）
+│   ├── style.css               # 全站共享样式（配色 / 字体 / 流星 / 文章排版）
+│   ├── site.js                 # 全站共享脚本（日夜切换 / 流星 / 防爬邮箱）
+│   ├── avatar.jpg              # 头像
+│   └── xiaoyuzhou.png          # 小宇宙 logo
+└── src/
+    ├── data/entries.js         # 非博客条目（代码 / 视频 / 音乐 / 播客外链）+ 分类元数据
+    ├── content/
+    │   ├── config.ts           # 博客内容集合 schema
+    │   └── posts/*.md          # 博客文章（Markdown）
+    ├── layouts/
+    │   ├── Base.astro          # 公共骨架（head + 流星背景 + 主题切换 + footer）
+    │   └── Post.astro          # 文章页布局
+    └── pages/
+        ├── index.astro         # 名片（主页 Pin + 时间线）
+        └── posts/[...slug].astro  # 文章页路由
 ```
 
-首页和所有文章页共用 `assets/style.css` 与 `assets/site.js`，因此**风格完全统一**，日夜主题、流星背景在文章页同样生效。
+名片首页与所有文章页共用 `public/assets/style.css` 与 `site.js`，**风格完全统一**，日夜主题、流星背景在文章页同样生效。
 
-## 它能不能托管在 GitHub Pages？
-
-**能，而且比原来的 Markdown 博客更简单。**
-
-- 原来的博客是 Hexo/Jekyll：写 `.md` → 工具构建成 HTML → 部署，需要 node_modules、主题、构建步骤。
-- 这个站是纯静态 `index.html`：**没有构建步骤**，GitHub Pages 直接把它当首页返回。
-
-## 部署
-
-### 方案 A：作为 `kyn0v.github.io` 首页（推荐，最简单）
-
-> ⚠️ 这会**覆盖**旧博客首页。旧文章链接（如 `/2022/01/02/...`）若仍想保留，请用方案 B。
+## 本地开发
 
 ```bash
-git remote add origin git@github.com:kyn0v/kyn0v.github.io.git
-git push -u origin main          # 若远端已有内容，先 git pull --rebase 或 --force
+npm install        # 首次安装依赖
+npm run dev        # 本地开发服务器（带热更新）
+npm run build      # 构建到 dist/
+npm run preview    # 预览构建产物
 ```
 
-GitHub 仓库 → Settings → Pages → Source 选 `main` 分支 / 根目录。
-几分钟后访问 https://kyn0v.github.io 。
+## 维护
 
-### 方案 B：放子路径，保留旧博客
+### 写一篇新博客（只需 Markdown）
 
-把文件放进旧仓库的子目录（如 `card/`），访问 `https://kyn0v.github.io/card/`。
-因为资源用的是相对路径（`assets/...`），子路径下也能正常运行。
+在 `src/content/posts/` 新建 `my-post.md`：
 
-## 维护：怎么加一条作品？
+```markdown
+---
+title: "文章标题"
+date: "2026-06-19"
+desc: "一句话简介，会显示在时间线卡片上。"
+pinned: false
+---
 
-打开 `index.html`，找到 `const ENTRIES = [` 数组，按格式加一行：
+正文用普通 Markdown 写即可，## 标题、代码块、列表、表格都已统一样式。
+```
+
+保存后，文章会**自动**生成独立页面，并按日期出现在名片的「时间线 / 📖 文字」分类里 —— 无需改动其他文件。
+
+### 加一条作品（代码 / 视频 / 音乐 / 播客）
+
+编辑 `src/data/entries.js`，在 `ENTRIES` 数组加一行：
 
 ```js
 {
-  date: "2026-06-19",          // 日期，决定时间线排序
-  type: "code",                // code | blog | video | music | podcast | photo
-  pinned: true,                // 可选：true 则同时显示在主页精选
+  date: "2026-06-19",          // 决定时间线排序
+  type: "code",                // code | video | music | podcast | photo
+  pinned: true,                // 可选：主页精选
   title: "作品标题",
   desc: "一句话描述。",
-  link: "https://..."          // 点击跳转
+  link: "https://..."          // 外部链接
 },
 ```
 
-分类对应的 emoji 在上方 `TYPE_META` 里定义，可自行调整。
+分类对应的 emoji / 颜色在同文件的 `TYPE_META` 里定义。
 
-保存后刷新即可，无需任何构建或安装。
+## 部署（GitHub Pages）
 
-## 维护：怎么写一篇新博客？
+仓库已配置 `.github/workflows/deploy.yml`：**推送到 `main` 分支即自动构建并发布**。
 
-1. 复制 `posts/` 里任意一篇 `.html` 作为模板，改名为新文章（如 `posts/my-post.html`）。
-2. 替换 `<h1>` 标题、`📅 日期`、`<article class="post-body">` 里的正文（用 `<h2> <p> <pre><code> <ul>` 等普通标签即可，样式已统一）。
-3. 在 `index.html` 的 `ENTRIES` 里加一条 `type: "blog"`，`link` 指向 `posts/my-post.html`。
-
-文章页自动继承名片的配色、字体、日夜切换和流星背景。
-
-## 本地预览
-
-```bash
-python3 -m http.server 8123
-# 打开 http://localhost:8123/
-```
+首次启用：仓库 → Settings → Pages → Source 选 **GitHub Actions** 即可。
+之后访问 https://kyn0v.github.io 。
 
 ## 说明
 
-- 中文正文用思源黑体（Noto Sans SC，Google Fonts CDN）；英文/代码/日期保留 Menlo 等宽。
-- 唯一的外部依赖是 Google Fonts，断网时会优雅回退到系统字体。
-- 邮箱用 JS 运行时拼接，源码里没有明文，防爬虫。
+- 中文正文用思源黑体（Noto Sans SC，Google Fonts）；英文 / 代码 / 日期保留 Menlo 等宽。
+- 邮箱用 JS 运行时拼接，源码中无明文，防爬虫。
+- 代码块关闭了内置 Shiki 高亮，改用随日夜主题适配的样式。

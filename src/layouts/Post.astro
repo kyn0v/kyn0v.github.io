@@ -1,0 +1,18 @@
+---
+import Base from './Base.astro';
+const { title, date, type = '📖 文字' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<Base title={`${title} · Jian Yang`} description={title}>
+  <div class="wrap">
+    <a class="back-link" href={`${base}/`}>← 返回首页</a>
+    <header class="post-header">
+      <div class="post-type">{type}</div>
+      <h1>{title}</h1>
+      <div class="post-date">{date}</div>
+    </header>
+    <article class="post-body">
+      <slot />
+    </article>
+  </div>
+</Base>
