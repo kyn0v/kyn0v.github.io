@@ -74,9 +74,10 @@ const CATS = [
         {pinned.length === 0 && <div class="empty">还没有 Pin 任何内容 ~</div>}
         {pinned.map((e) => {
           const meta = TYPE_META[e.type];
+          const external = e.link.startsWith('http');
           return (
-            <a href={e.link} target={e.link.startsWith('http') ? '_blank' : null}>
-              <div class="pin-card" style={`--type-color:${meta.color}`}>
+            <div class="pin-card" style={`--type-color:${meta.color}`}>
+              <a class="card-link" href={e.link} target={external ? '_blank' : null}>
                 <div class="pin-top">
                   <span class="badge" title={meta.label}>{meta.emoji}</span>
                   <span class="pin-date">{e.date}</span>
@@ -84,8 +85,11 @@ const CATS = [
                 <h3>{e.title}</h3>
                 {e.desc && <p>{e.desc}</p>}
                 <span class="link-hint">查看 →</span>
-              </div>
-            </a>
+              </a>
+              {external && (
+                <button class="comment-btn" data-term={e.link} data-title={e.title}>💬 评论</button>
+              )}
+            </div>
           );
         })}
       </div>
@@ -105,23 +109,41 @@ const CATS = [
       <div class="timeline" id="timeline">
         {all.map((e) => {
           const meta = TYPE_META[e.type];
+          const external = e.link.startsWith('http');
           return (
             <div class="entry" data-type={e.type} style={`--type-color:${meta.color}`}>
               <div class="date">{e.date}</div>
-              <a href={e.link} target={e.link.startsWith('http') ? '_blank' : null}>
-                <div class="card">
+              <div class="card">
+                <a class="card-link" href={e.link} target={external ? '_blank' : null}>
                   <span class="badge" title={meta.label}>{meta.emoji}</span>
                   <h3>{e.title}</h3>
                   {e.desc && <p>{e.desc}</p>}
                   <span class="link-hint">查看 →</span>
-                </div>
-              </a>
+                </a>
+                {external && (
+                  <button class="comment-btn" data-term={e.link} data-title={e.title}>💬 评论</button>
+                )}
+              </div>
             </div>
           );
         })}
       </div>
       <div class="empty" id="timeline-empty" style="display:none">这个分类暂时还没有作品 ~</div>
     </section>
+  </div>
+
+  <!-- 评论抽屉（时间线条目专属 Giscus） -->
+  <div class="comment-drawer" id="commentDrawer" aria-hidden="true">
+    <div class="comment-drawer-overlay" data-close></div>
+    <aside class="comment-drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+      <header class="comment-drawer-head">
+        <h3 id="drawerTitle">评论</h3>
+        <button class="comment-drawer-close" data-close aria-label="关闭">✕</button>
+      </header>
+      <div class="comment-drawer-body">
+        <div id="drawerGiscus"></div>
+      </div>
+    </aside>
   </div>
 
   <script is:inline>
@@ -181,6 +203,85 @@ const CATS = [
           ev.preventDefault();
           setCollapsed(!filters.classList.contains("collapsed"));
         }
+      });
+    })();
+
+    // 评论抽屉：时间线/置顶条目点击「💬 评论」打开，加载该条目专属 Giscus
+    (function () {
+      const GISCUS = {
+        repo: "kyn0v/kyn0v.github.io",
+        repoId: "MDEwOlJlcG9zaXRvcnkzMzY0OTMxNDQ=",
+        category: "General",
+        categoryId: "MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyNTU0ODU3",
+      };
+      const drawer = document.getElementById("commentDrawer");
+      const titleEl = document.getElementById("drawerTitle");
+      const mount = document.getElementById("drawerGiscus");
+      if (!drawer || !mount) return;
+
+      function currentTheme() {
+        return document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+      }
+
+      function loadGiscus(term) {
+        mount.innerHTML = "";
+        const s = document.createElement("script");
+        s.src = "https://giscus.app/client.js";
+        s.async = true;
+        s.crossOrigin = "anonymous";
+        s.setAttribute("data-repo", GISCUS.repo);
+        s.setAttribute("data-repo-id", GISCUS.repoId);
+        s.setAttribute("data-category", GISCUS.category);
+        s.setAttribute("data-category-id", GISCUS.categoryId);
+        s.setAttribute("data-mapping", "specific");
+        s.setAttribute("data-term", term);
+        s.setAttribute("data-strict", "1");
+        s.setAttribute("data-reactions-enabled", "1");
+        s.setAttribute("data-emit-metadata", "0");
+        s.setAttribute("data-input-position", "top");
+        s.setAttribute("data-theme", currentTheme());
+        s.setAttribute("data-lang", "zh-CN");
+        s.setAttribute("data-loading", "lazy");
+        mount.appendChild(s);
+      }
+
+      function open(term, title) {
+        titleEl.textContent = title || "评论";
+        drawer.classList.add("open");
+        drawer.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        loadGiscus(term);
+      }
+
+      function close() {
+        drawer.classList.remove("open");
+        drawer.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        mount.innerHTML = "";
+      }
+
+      document.addEventListener("click", (ev) => {
+        const btn = ev.target.closest(".comment-btn");
+        if (btn) {
+          ev.preventDefault();
+          open(btn.dataset.term, btn.dataset.title);
+          return;
+        }
+        if (ev.target.closest("[data-close]")) close();
+      });
+
+      document.addEventListener("keydown", (ev) => {
+        if (ev.key === "Escape" && drawer.classList.contains("open")) close();
+      });
+
+      // 主题切换时同步抽屉内 Giscus
+      document.addEventListener("themechange", (e) => {
+        const iframe = mount.querySelector("iframe.giscus-frame");
+        if (!iframe) return;
+        iframe.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: e.detail.theme === "light" ? "light" : "dark" } } },
+          "https://giscus.app"
+        );
       });
     })();
   </script>
