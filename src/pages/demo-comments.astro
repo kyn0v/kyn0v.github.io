@@ -1,0 +1,300 @@
+---
+import Base from '../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+function renderComments(pageId, pageTitle) {
+  return `
+    <div class="comments-section" id="comments-${pageId}" data-page-id="${pageId}">
+      <h2 class="comments-title">💬 评论</h2>
+      <div class="comments-container">
+        <div class="comments-loading">加载评论中...</div>
+      </div>
+      <div class="comments-new">
+        <h3>添加评论</h3>
+        <p class="comments-hint">评论通过 GitHub Issue 管理。你可以：</p>
+        <ol>
+          <li>
+            <a class="github-issue-link" href="https://github.com/kyn0v/kyn0v.github.io/issues?q=is%3Aissue+${encodeURIComponent(pageId)}" target="_blank" rel="noopener noreferrer">
+              在 GitHub 上查看或创建讨论
+            </a>
+          </li>
+          <li>直接在 Issue 下面回复评论</li>
+        </ol>
+        <p class="comments-hint">需要 GitHub 账户登录。</p>
+      </div>
+    </div>
+  `;
+}
+---
+
+<Base title="评论功能原型 · Jian Yang" description="Comments Feature Demo">
+  <div class="wrap">
+    <a class="back-link" href={`${base}/`}>← 返回首页</a>
+    
+    <section class="demo-section">
+      <h1>💬 评论功能原型演示</h1>
+      <p class="demo-intro">
+        本页面展示如何在文章和时间线上集成 GitHub Issue 评论功能。
+      </p>
+
+      <!-- 示例 1: 文章页面的评论 -->
+      <div class="demo-box">
+        <h2>📄 示例 1: 文章页面评论</h2>
+        <div class="article-demo">
+          <article class="post-body">
+            <h3>React 教程</h3>
+            <p>这是一篇示例文章的内容。在这篇文章下方，你会看到评论区。</p>
+            <p>通过 GitHub Issue API，我们可以自动加载这篇文章对应的 Issue 评论，并允许用户直接在 GitHub 上发表评论。</p>
+          </article>
+          
+          <!-- 评论区 -->
+          <Fragment set:html={renderComments('react-tutorial', '[blog] React 教程')} />
+        </div>
+      </div>
+
+      <!-- 示例 2: 时间线卡片的评论 -->
+      <div class="demo-box">
+        <h2>📍 示例 2: 时间线卡片评论</h2>
+        <p class="note">
+          时间线上的每个卡片（代码、视频、音乐、博客等）也可以有独立的评论。
+        </p>
+        
+        <div class="timeline-demo">
+          <!-- 博客卡片 + 评论 -->
+          <div class="timeline-entry">
+            <h3 class="entry-title">📖 在 GitHub Pages 上搭建博客</h3>
+            <p class="entry-desc">从单文件 HTML 升级到 Astro SSG 的实践记录。</p>
+            <p class="entry-meta">2021-02-05</p>
+            
+            <details class="card-comments" open>
+              <summary>💬 查看评论 (点击展开)</summary>
+              <div class="comments-wrapper">
+                <Fragment set:html={renderComments('timeline-blog-001', '[timeline] 在 GitHub Pages 上搭建博客')} />
+              </div>
+            </details>
+          </div>
+
+          <!-- 代码卡片 + 评论 -->
+          <div class="timeline-entry">
+            <h3 class="entry-title">⌨️ 某个开源项目</h3>
+            <p class="entry-desc">有趣的 JavaScript 库或工具。</p>
+            <p class="entry-meta">2024-01-15</p>
+            
+            <details class="card-comments">
+              <summary>💬 查看评论 (点击展开)</summary>
+              <div class="comments-wrapper">
+                <Fragment set:html={renderComments('timeline-code-001', '[timeline] 某个开源项目')} />
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+
+      <!-- 实现说明 -->
+      <div class="demo-box">
+        <h2>🔧 实现说明</h2>
+        <div class="impl-details">
+          <h3>优点</h3>
+          <ul>
+            <li><strong>无需第三方服务</strong>：评论直接存储在 GitHub Issue 中，不依赖 Disqus、Utterances 等</li>
+            <li><strong>单一数据源</strong>：所有讨论都在仓库 Issue 里，便于管理</li>
+            <li><strong>用户友好</strong>：用户可以用 GitHub 账户直接回复，支持 Markdown 格式</li>
+            <li><strong>灵活集成</strong>：可在文章页、时间线卡片、甚至独立页面添加评论</li>
+          </ul>
+
+          <h3>实现细节</h3>
+          <ul>
+            <li><strong>页面标识</strong>：每篇文章/卡片有唯一的 <code>pageId</code>（如文章 slug）</li>
+            <li><strong>Issue 搜索</strong>：通过 GitHub REST API 搜索 title 包含 <code>pageId</code> 的 Issue</li>
+            <li><strong>评论加载</strong>：若找到 Issue，加载其评论；若无 Issue，提供"创建讨论"链接</li>
+            <li><strong>无需授权</strong>：公开仓库的读取无需 token，仓库 owner 可在 GitHub 上直接管理</li>
+          </ul>
+
+          <h3>使用流程</h3>
+          <ol>
+            <li>用户在博客/时间线上看到"查看评论"或"💬 评论"区域</li>
+            <li>点击链接跳转到 GitHub Issue 页面</li>
+            <li>若 Issue 不存在，自动建议创建新 Issue（标题为 <code>[discussion] 文章标题</code>）</li>
+            <li>用户在 Issue 下方直接回复，评论自动显示在网站上</li>
+          </ol>
+
+          <h3>Issue 命名约定（建议）</h3>
+          <pre><code>[discussion] 文章标题
+或
+[discussion-blog] 文章标题（区分内容类型）
+或
+[timeline] 条目标题</code></pre>
+        </div>
+      </div>
+
+      <!-- 后续方案讨论 -->
+      <div class="demo-box">
+        <h2>🤔 后续可选优化</h2>
+        <ul>
+          <li><strong>已读未读标记</strong>：记录用户是否查看过评论（localStorage）</li>
+          <li><strong>新评论通知</strong>：通过 GitHub Actions 定期检查，有新评论时发邮件</li>
+          <li><strong>评论分页</strong>：若评论过多，实现分页加载</li>
+          <li><strong>Markdown 渲染</strong>：用 marked.js 渲染评论中的 Markdown</li>
+          <li><strong>自动创建 Issue</strong>：通过 GitHub API Token（在 Secret 中）自动为新页面创建讨论 Issue</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+.demo-section {
+  max-width: 800px;
+}
+
+.demo-intro {
+  font-size: 1.1rem;
+  color: var(--c-text-secondary);
+  margin-bottom: 2rem;
+}
+
+.demo-box {
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  background: var(--c-bg-subtle);
+  border-left: 4px solid var(--c-primary, #3498db);
+  border-radius: 6px;
+}
+
+.demo-box h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--c-text);
+}
+
+.demo-box h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  color: var(--c-text);
+}
+
+.demo-box ul, .demo-box ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+  color: var(--c-text);
+  line-height: 1.8;
+}
+
+.demo-box li {
+  margin-bottom: 0.5rem;
+}
+
+.demo-box code {
+  background: var(--c-bg);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: monospace;
+  color: var(--c-code-text, #e83e8c);
+}
+
+.demo-box pre {
+  background: var(--c-bg);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.article-demo {
+  background: var(--c-bg);
+  padding: 1.5rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.article-demo .post-body {
+  margin-bottom: 2rem;
+}
+
+.article-demo .post-body h3 {
+  margin-top: 0;
+}
+
+.timeline-demo {
+  background: var(--c-bg);
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.timeline-entry {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--c-border);
+  border-radius: 6px;
+}
+
+.timeline-entry:last-child {
+  margin-bottom: 0;
+}
+
+.entry-title {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: var(--c-text);
+}
+
+.entry-desc {
+  margin: 0.5rem 0;
+  color: var(--c-text-secondary);
+  font-size: 0.95rem;
+}
+
+.entry-meta {
+  margin: 0.5rem 0;
+  color: var(--c-text-secondary);
+  font-size: 0.85rem;
+}
+
+.card-comments {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--c-border);
+}
+
+.card-comments summary {
+  cursor: pointer;
+  padding: 0.5rem;
+  margin: -0.5rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.card-comments summary:hover {
+  background: var(--c-bg-subtle);
+}
+
+.comments-wrapper {
+  margin-top: 1rem;
+}
+
+.note {
+  padding: 1rem;
+  background: var(--c-bg);
+  border-left: 3px solid var(--c-warning, #f39c12);
+  border-radius: 4px;
+  color: var(--c-text);
+  margin-bottom: 1rem;
+}
+
+.impl-details {
+  color: var(--c-text);
+}
+
+/* 响应式 */
+@media (max-width: 640px) {
+  .demo-box {
+    padding: 1rem;
+  }
+
+  .article-demo, .timeline-demo {
+    padding: 1rem;
+  }
+}
+</style>
