@@ -2,7 +2,7 @@
 
 [Astro](https://astro.build/) 搭建的博客 · [kyn0v.github.io](https://kyn0v.github.io)
 
-Inspired by [cactus](https://github.com/probberechts/hexo-theme-cactus) 与 [flexy](https://github.com/sjaakvandenberg/flexy)。
+Inspired by [cactus](https://github.com/probberechts/hexo-theme-cactus) and [flexy](https://github.com/sjaakvandenberg/flexy).
 
 ## 开发
 
