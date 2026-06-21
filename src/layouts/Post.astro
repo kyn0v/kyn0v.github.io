@@ -3,6 +3,14 @@ import Base from './Base.astro';
 
 const { title, date, type = '📖 文字', slug } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Giscus 配置（基于 GitHub Discussions，无需第三方服务）
+const GISCUS = {
+  repo: 'kyn0v/kyn0v.github.io',
+  repoId: 'MDEwOlJlcG9zaXRvcnkzMzY0OTMxNDQ=',
+  category: 'General',
+  categoryId: 'MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyNTU0ODU3',
+};
 ---
 <Base title={`${title} · Jian Yang`} description={title}>
   <div class="wrap">
@@ -15,26 +23,19 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <article class="post-body">
       <slot />
     </article>
+
     {slug && (
-      <div class="comments-section" id={`comments-${slug}`} data-page-id={slug}>
+      <section class="comments-section">
         <h2 class="comments-title">💬 评论</h2>
-        <div class="comments-container">
-          <div class="comments-loading">加载评论中...</div>
-        </div>
-        <div class="comments-new">
-          <h3>添加评论</h3>
-          <p class="comments-hint">评论通过 GitHub Issue 管理。你可以：</p>
-          <ol>
-            <li>
-              <a class="github-issue-link" href={`https://github.com/kyn0v/kyn0v.github.io/issues?q=is%3Aissue+${encodeURIComponent(slug)}`} target="_blank" rel="noopener noreferrer">
-                在 GitHub 上查看或创建讨论
-              </a>
-            </li>
-            <li>直接在 Issue 下面回复评论</li>
-          </ol>
-          <p class="comments-hint">需要 GitHub 账户登录。</p>
-        </div>
-      </div>
+        <div
+          class="giscus"
+          data-giscus
+          data-repo={GISCUS.repo}
+          data-repo-id={GISCUS.repoId}
+          data-category={GISCUS.category}
+          data-category-id={GISCUS.categoryId}
+        ></div>
+      </section>
     )}
   </div>
 </Base>
@@ -51,203 +52,51 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   font-size: 1.2rem;
   color: var(--c-text);
 }
-
-.comments-container {
-  margin-bottom: 2rem;
-  min-height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--c-bg-subtle);
-  border-radius: 8px;
-  padding: 1.5rem;
-}
-
-.comments-loading {
-  color: var(--c-text-secondary);
-  font-size: 0.9rem;
-}
-
-.comments-new {
-  background: var(--c-bg-subtle);
-  border: 1px solid var(--c-border);
-  border-radius: 8px;
-  padding: 1.5rem;
-}
-
-.comments-new h3 {
-  margin: 0 0 1rem;
-  font-size: 1rem;
-  color: var(--c-text);
-}
-
-.comments-new ol {
-  margin: 0 0 1rem;
-  padding-left: 1.5rem;
-  color: var(--c-text);
-}
-
-.comments-new li {
-  margin-bottom: 0.5rem;
-}
-
-.comments-new a {
-  color: var(--c-primary, #3498db);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.comments-new a:hover {
-  text-decoration: underline;
-}
-
-.comments-hint {
-  margin: 0;
-  color: var(--c-text-secondary);
-  font-size: 0.9rem;
-}
-
-@media (max-width: 640px) {
-  .comments-section {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-  }
-
-  .comments-new {
-    padding: 1rem;
-  }
-}
-
-.comment {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 6px;
-  background: var(--c-bg);
-  border: 1px solid var(--c-border);
-}
-
-.comment-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.75rem;
-}
-
-.comment-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  margin-right: 0.75rem;
-}
-
-.comment-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.comment-author {
-  font-weight: 600;
-  color: var(--c-text);
-  text-decoration: none;
-}
-
-.comment-author:hover {
-  text-decoration: underline;
-}
-
-.comment-date {
-  font-size: 0.85rem;
-  color: var(--c-text-secondary);
-}
-
-.comment-body {
-  color: var(--c-text);
-  line-height: 1.6;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-.comments-empty {
-  text-align: center;
-  color: var(--c-text-secondary);
-  padding: 1rem;
-}
 </style>
 
 <script>
-function initComments() {
-  const sections = document.querySelectorAll('.comments-section');
-  
-  sections.forEach(section => {
-    const pageId = section.dataset.pageId;
-    const container = section.querySelector('.comments-container');
-    const issueLink = section.querySelector('.github-issue-link');
+function loadGiscus() {
+  const mount = document.querySelector('[data-giscus]');
+  if (!mount || mount.dataset.loaded) return;
+  mount.dataset.loaded = '1';
 
-    loadComments(pageId, container, issueLink);
-  });
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
+  const s = document.createElement('script');
+  s.src = 'https://giscus.app/client.js';
+  s.async = true;
+  s.crossOrigin = 'anonymous';
+  s.setAttribute('data-repo', mount.dataset.repo);
+  s.setAttribute('data-repo-id', mount.dataset.repoId);
+  s.setAttribute('data-category', mount.dataset.category);
+  s.setAttribute('data-category-id', mount.dataset.categoryId);
+  s.setAttribute('data-mapping', 'pathname');
+  s.setAttribute('data-strict', '0');
+  s.setAttribute('data-reactions-enabled', '1');
+  s.setAttribute('data-emit-metadata', '0');
+  s.setAttribute('data-input-position', 'top');
+  s.setAttribute('data-theme', isLight ? 'light' : 'dark');
+  s.setAttribute('data-lang', 'zh-CN');
+  s.setAttribute('data-loading', 'lazy');
+  mount.appendChild(s);
 }
 
-async function loadComments(pageId, container, issueLink) {
-  try {
-    const repoOwner = 'kyn0v';
-    const repoName = 'kyn0v.github.io';
-    const searchUrl = `https://api.github.com/search/issues?q=repo:${repoOwner}/${repoName}+in:title+"${pageId}"&per_page=1`;
-    const searchRes = await fetch(searchUrl);
-    const searchData = await searchRes.json();
-
-    if (!searchData.items || searchData.items.length === 0) {
-      container.innerHTML = '<p class="comments-empty">还没有评论，点击上方链接创建讨论吧！</p>';
-      return;
-    }
-
-    const issueNumber = searchData.items[0].number;
-    const issueUrl = `https://github.com/${repoOwner}/${repoName}/issues/${issueNumber}`;
-    issueLink.href = issueUrl;
-
-    const commentsUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/issues/${issueNumber}/comments`;
-    const commentsRes = await fetch(commentsUrl);
-    const comments = await commentsRes.json();
-
-    if (comments.length === 0) {
-      container.innerHTML = '<p class="comments-empty">暂无评论，成为第一个评论者吧！</p>';
-    } else {
-      const commentsHtml = comments.map(comment => {
-        const date = new Date(comment.created_at).toLocaleDateString('zh-CN');
-        return `
-          <div class="comment">
-            <div class="comment-header">
-              <img src="${comment.user.avatar_url}" alt="${comment.user.login}" class="comment-avatar">
-              <div class="comment-info">
-                <a href="${comment.user.html_url}" target="_blank" class="comment-author">${comment.user.login}</a>
-                <span class="comment-date">${date}</span>
-              </div>
-            </div>
-            <div class="comment-body">${escapeHtml(comment.body)}</div>
-          </div>
-        `;
-      }).join('');
-      container.innerHTML = commentsHtml;
-    }
-  } catch (error) {
-    console.error('Failed to load comments:', error);
-    container.innerHTML = '<p class="comments-empty">评论加载失败，请刷新页面或稍后重试</p>';
-  }
+function setGiscusTheme(theme) {
+  const iframe = document.querySelector('iframe.giscus-frame');
+  if (!iframe) return;
+  iframe.contentWindow.postMessage(
+    { giscus: { setConfig: { theme } } },
+    'https://giscus.app'
+  );
 }
 
-function escapeHtml(text) {
-  const map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;'
-  };
-  return text.replace(/[&<>"']/g, m => map[m]);
-}
+document.addEventListener('themechange', (e) => {
+  setGiscusTheme(e.detail.theme === 'light' ? 'light' : 'dark');
+});
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initComments);
+  document.addEventListener('DOMContentLoaded', loadGiscus);
 } else {
-  initComments();
+  loadGiscus();
 }
 </script>

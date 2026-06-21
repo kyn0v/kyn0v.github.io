@@ -13,6 +13,7 @@
       if (isLight) root.removeAttribute("data-theme");
       else root.setAttribute("data-theme", "light");
       localStorage.setItem("theme", isLight ? "dark" : "light");
+      document.dispatchEvent(new CustomEvent("themechange", { detail: { theme: isLight ? "dark" : "light" } }));
     });
   }
 
