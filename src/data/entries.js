@@ -40,7 +40,7 @@ export const ENTRIES = [
   { date: "2016-01-17", type: "music", title: "电影配乐", desc: "配乐承载着电影的气息", link: "https://music.163.com/playlist?id=155449195" },
   { date: "2015-03-09", type: "music", title: "youngjjj 喜欢的音乐", desc: "", link: "https://music.163.com/playlist?id=57196439" },
   // —— 知乎专栏（zhihu.com/people/youngjjj/columns，日期为专栏创建时间）——
-  { date: "2026-05-13", type: "column", title: "知乎专栏《Harness Exploration》", desc: "记录 Harness 的学习与思考。", link: "https://www.zhihu.com/column/c_2054657432937402668" },
+  { date: "2026-06-28", type: "column", title: "知乎专栏《Harness Exploration》", desc: "记录 Harness 的学习与思考。", link: "https://www.zhihu.com/column/c_2054657432937402668" },
   { date: "2020-08-12", type: "column", title: "知乎专栏《乐理入门》", desc: "从音程开始，记录乐理学习。", link: "https://www.zhihu.com/column/c_1293685947536637952" },
   { date: "2018-07-26", type: "column", title: "知乎专栏《CV学习之目标检测》", desc: "目标检测方向的论文阅读笔记。", link: "https://www.zhihu.com/column/c_1022508397446475776" },
 ];
