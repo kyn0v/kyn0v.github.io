@@ -299,6 +299,23 @@
   }
   .tab-panel { display: none; animation: fadeIn .35s ease; }
   .tab-panel.active { display: block; }
+  .tab-resume {
+    margin-left: auto;
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 13px;
+    margin-bottom: 6px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all .18s ease;
+  }
+  .tab-resume svg { width: 15px; height: 15px; fill: currentColor; }
+  .tab-resume:hover { filter: brightness(1.08); transform: translateY(-1px); }
 
   /* ---- Pinned (home) ---- */
   .pinned-grid {
@@ -718,3 +735,220 @@
     .socials a { width: 36px; height: 36px; }
     .post-header h1 { font-size: 1.35rem; }
   }
+
+  /* ===========================================================
+     Resume page (/resume) · reuses cactus palette + day/night
+     =========================================================== */
+  .resume { max-width: 44rem; }
+
+  /* language toggle: show only current lang */
+  .resume .l { display: none; }
+  .resume[data-lang="zh"] .l-zh { display: inline; }
+  .resume[data-lang="en"] .l-en { display: inline; }
+
+  .resume-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 26px;
+    flex-wrap: wrap;
+  }
+  .resume-toolbar .rt-spacer { flex: 1; }
+  .rt-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all .18s ease;
+  }
+  .rt-btn:hover { color: var(--text); border-color: var(--accent); }
+  .lang-switch {
+    display: inline-flex;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .ls-btn {
+    padding: 6px 12px;
+    background: var(--bg-soft);
+    border: none;
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .18s ease;
+  }
+  .ls-btn.active { background: var(--accent); color: #fff; }
+
+  .resume-head {
+    padding-bottom: 18px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .resume-head h1 { font-size: 1.7rem; font-weight: 700; letter-spacing: .3px; }
+  .resume-role { color: var(--accent); font-size: 0.98rem; margin-top: 2px; }
+  .resume-socials { margin-top: 12px; margin-bottom: 0; }
+  .resume-loc { margin-top: 8px; color: var(--text-dim); font-size: 0.85rem; }
+
+  /* section heading — proper h2 instead of tiny label */
+  .resume-h {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: .3px;
+    color: var(--text);
+    margin-bottom: 14px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .resume-h::before { content: "// "; color: var(--accent); font-weight: 400; }
+
+  .resume-sec { margin-top: 30px; }
+  .resume-summary { color: var(--text); font-size: 0.9rem; }
+
+  .skills-grid { display: flex; flex-direction: column; gap: 10px; }
+  .skill-row { display: flex; gap: 12px; align-items: baseline; }
+  .skill-label {
+    flex: 0 0 6.5rem;
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    text-align: right;
+  }
+  .skill-items { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-chip {
+    padding: 2px 9px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border-soft);
+    border-radius: 5px;
+    font-size: 0.8rem;
+    color: var(--text);
+  }
+
+  .resume-item { margin-bottom: 18px; }
+  .resume-item.compact { margin-bottom: 12px; }
+  .ri-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .ri-role { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+  .ri-role a { color: var(--link); }
+  .ri-role a:hover { text-decoration: underline; }
+  .ri-tag {
+    font-weight: 400;
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    margin-left: 8px;
+  }
+  .ri-period { color: var(--text-dim); font-size: 0.8rem; white-space: nowrap; }
+  .ri-org { color: var(--accent); font-size: 0.85rem; margin-top: 1px; }
+  .ri-bullets { list-style: none; margin-top: 6px; }
+  .ri-bullets li {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 4px;
+    font-size: 0.87rem;
+    color: var(--text);
+  }
+  .ri-bullets li::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+  .ri-desc { font-size: 0.87rem; color: var(--text-dim); margin-top: 3px; }
+  .ri-desc-inline { color: var(--text-dim); font-size: 0.85rem; margin-left: 8px; }
+  .ri-desc a, .ri-desc-inline a { color: var(--link); }
+  .ri-desc a:hover, .ri-desc-inline a:hover { text-decoration: underline; }
+
+  .resume-note {
+    margin-top: 34px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-soft);
+    color: var(--text-dim);
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 640px) {
+    .skill-row { flex-direction: column; gap: 4px; }
+    .skill-label { flex-basis: auto; text-align: left; }
+    .ri-period { width: 100%; }
+  }
+
+  /* ---------- Print / Save-as-PDF ---------- */
+  @media print {
+    /* kill all animations/transitions — running animations make Chromium
+       desktop print-preview capture blank frames */
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+      animation-play-state: paused !important;
+    }
+    .no-print, .theme-toggle, .to-top, .sky, .stars, .meteor, footer { display: none !important; }
+    html, body {
+      height: auto !important;
+      min-height: 0 !important;
+      overflow: visible !important;
+      position: static !important;
+      background: #fff !important;
+      color: #000 !important;
+    }
+    .wrap.resume {
+      position: static !important;
+      z-index: auto !important;
+      max-width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+    .resume-head h1 { color: #000; }
+    .resume-role { color: #1a6f52; }
+    .resume-contact, .resume-contact .sep { color: #444; }
+    .resume-contact a, .ri-role a { color: #000; }
+    .ri-desc a, .ri-desc-inline a { color: #000; text-decoration: underline; }
+    .section-label { color: #000; }
+    .section-label::before { color: #1a6f52; }
+    .resume-h { color: #000; border-bottom-color: #ccc; }
+    .resume-h::before { color: #1a6f52; }
+    .resume-socials a { background: transparent; border-color: #ccc; }
+    .resume-socials a svg { fill: #000; }
+    .ri-role, .resume-summary, .ri-bullets li, .skill-chip { color: #000; }
+    .ri-org { color: #1a6f52; }
+    .ri-tag, .ri-period, .ri-desc, .skill-label { color: #333; }
+    .ri-bullets li::before { color: #1a6f52; }
+    .skill-chip { background: #f2f2f2; border-color: #ccc; }
+    .resume-sec { break-inside: auto; }
+    .resume-h { break-after: avoid; }
+    .resume-item { break-inside: avoid; }
+    a[target="_blank"]::after { content: ""; }
+
+    /* compact everything to target a single page */
+    body { line-height: 1.28 !important; font-size: 12px; }
+    .resume-head { padding-bottom: 6px; margin-bottom: 4px; }
+    .resume-head h1 { font-size: 1.3rem; }
+    .resume-role { font-size: 0.88rem; }
+    .resume-socials { margin-top: 5px; }
+    .resume-socials a { width: 28px; height: 28px; }
+    .resume-socials a svg { width: 14px; height: 14px; }
+    .resume-sec { margin-top: 6px; }
+    .resume-h { font-size: 0.98rem; margin-bottom: 5px; padding-bottom: 2px; }
+    .resume-summary { font-size: 0.78rem; }
+    .skills-grid { gap: 4px; }
+    .skill-chip { padding: 1px 8px; font-size: 0.78rem; }
+    .resume-item { margin-bottom: 4px; }
+    .resume-item.compact { margin-bottom: 3px; }
+    .ri-role { font-size: 0.85rem; }
+    .ri-org { font-size: 0.78rem; margin-top: 0; }
+    .ri-bullets { margin-top: 2px; }
+    .ri-bullets li { font-size: 0.78rem; margin-bottom: 1px; }
+    .ri-desc { font-size: 0.78rem; margin-top: 1px; }
+    .ri-desc-inline { font-size: 0.78rem; }
+  }
+
+  @page { margin: 8mm; }

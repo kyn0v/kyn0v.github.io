@@ -1,0 +1,183 @@
+---
+import Base from '../layouts/Base.astro';
+import { RESUME, pick } from '../data/resume.js';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+function esc(s = '') {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+// 双语字段 → 同时渲染中英两版，前端用语言开关控制显隐
+function bi(field) {
+  const zh = esc(pick(field, 'zh'));
+  const en = esc(pick(field, 'en'));
+  return `<span class="l l-zh">${zh}</span><span class="l l-en">${en}</span>`;
+}
+
+// 同 bi()，但把 links 中声明的词替换成超链接（term 无特殊字符，转义后不变）
+function biLinked(field, links) {
+  let zh = esc(pick(field, 'zh'));
+  let en = esc(pick(field, 'en'));
+  for (const { term, url } of links || []) {
+    if (!term || !url) continue;
+    const t = esc(term);
+    const a = `<a href="${esc(url)}" target="_blank" rel="noopener">${t}</a>`;
+    zh = zh.split(t).join(a);
+    en = en.split(t).join(a);
+  }
+  return `<span class="l l-zh">${zh}</span><span class="l l-en">${en}</span>`;
+}
+
+const h = RESUME.header;
+
+// 按当前日期动态计算工作年限（自 experienceStart 起，取满整年）
+const [sy, sm] = RESUME.experienceStart.split('-').map(Number);
+const now = new Date();
+const totalMonths = (now.getFullYear() - sy) * 12 + (now.getMonth() + 1 - sm);
+const years = Math.max(0, Math.floor(totalMonths / 12));
+const summary = {
+  zh: pick(RESUME.summary, 'zh').replace('{{years}}', years),
+  en: pick(RESUME.summary, 'en').replace('{{years}}', years),
+};
+---
+<Base title="Jian Yang · 简历 / Resume" description="Jian Yang 的简历 / Resume" noindex={true}>
+  <div class="wrap resume" data-lang="zh" id="resume">
+    <!-- 顶部工具条：语言切换 + 打印 -->
+    <div class="resume-toolbar no-print">
+      <a class="rt-btn" href={`${base}/`}>&larr; <span class="l l-zh">返回主页</span><span class="l l-en">Home</span></a>
+      <div class="rt-spacer"></div>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button class="ls-btn active" data-lang="zh">中文</button>
+        <button class="ls-btn" data-lang="en">EN</button>
+      </div>
+      <button class="rt-btn" id="printBtn" title="建议使用 Safari 打印 / 另存为 PDF（Chrome / Edge 打印可能空白）">🖨 <span class="l l-zh">下载 PDF（Safari）</span><span class="l l-en">Download PDF (Safari)</span></button>
+    </div>
+
+    <!-- 抬头 -->
+    <header class="resume-head">
+      <h1>{h.name}</h1>
+      <div class="resume-role" set:html={bi(h.title)} />
+      <nav class="socials resume-socials">
+        <a href={h.github} target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" role="img"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        </a>
+        <a id="email-link" href="#" data-user={h.email.user} data-domain={h.email.domain} aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" role="img"><path d="M1.5 4.5h21A1.5 1.5 0 0 1 24 6v12a1.5 1.5 0 0 1-1.5 1.5h-21A1.5 1.5 0 0 1 0 18V6a1.5 1.5 0 0 1 1.5-1.5zm.6 1.8L12 12.9l9.9-6.6H2.1zM22.2 7.8l-9.66 6.44a.9.9 0 0 1-1.08 0L1.8 7.8V18h20.4V7.8z"/></svg>
+        </a>
+      </nav>
+      {pick(h.location, 'zh') && <div class="resume-loc" set:html={bi(h.location)} />}
+    </header>
+
+    <!-- 概述 -->
+    <section class="resume-sec">
+      <h2 class="resume-h"><span class="l l-zh">概述</span><span class="l l-en">Summary</span></h2>
+      <p class="resume-summary" set:html={bi(summary)} />
+    </section>
+
+    <!-- 技能 -->
+    <section class="resume-sec">
+      <h2 class="resume-h"><span class="l l-zh">技能</span><span class="l l-en">Skills</span></h2>
+      <div class="skills-grid">
+        {RESUME.skills.map((g) => (
+          <div class="skill-row">
+            <div class="skill-label" set:html={bi(g.label)} />
+            <div class="skill-items">
+              {g.items.map((it) => <span class="skill-chip">{it}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 工作经历 -->
+    <section class="resume-sec">
+      <h2 class="resume-h"><span class="l l-zh">工作经历</span><span class="l l-en">Experience</span></h2>
+      {RESUME.experience.map((e) => (
+        <div class="resume-item">
+          <div class="ri-head">
+            <span class="ri-role" set:html={bi(e.role)} />
+            <span class="ri-period" set:html={bi(e.period)} />
+          </div>
+          <div class="ri-org">{e.org}</div>
+          <ul class="ri-bullets">
+            {e.bullets.map((b) => <li set:html={bi(b)} />)}
+          </ul>
+        </div>
+      ))}
+    </section>
+
+    <!-- 项目 -->
+    <section class="resume-sec">
+      <h2 class="resume-h"><span class="l l-zh">精选项目</span><span class="l l-en">Projects</span></h2>
+      {RESUME.projects.map((p) => (
+        <div class="resume-item">
+          <div class="ri-head">
+            <span class="ri-role">
+              {p.link
+                ? <a href={p.link} target="_blank" rel="noopener" set:html={bi(p.name)} />
+                : <span set:html={bi(p.name)} />}
+              <span class="ri-tag" set:html={bi(p.tag)} />
+            </span>
+          </div>
+          <p class="ri-desc" set:html={biLinked(p.desc, p.links)} />
+        </div>
+      ))}
+    </section>
+
+    <!-- 教育 -->
+    <section class="resume-sec">
+      <h2 class="resume-h"><span class="l l-zh">教育背景</span><span class="l l-en">Education</span></h2>
+      {RESUME.education.map((ed) => (
+        <div class="resume-item">
+          <div class="ri-head">
+            <span class="ri-role">
+              <span set:html={bi(ed.school)} />
+              <span class="ri-tag" set:html={bi(ed.degree)} />
+            </span>
+            <span class="ri-period">{ed.period}</span>
+          </div>
+          {pick(ed.note, 'zh') && <p class="ri-desc" set:html={biLinked(ed.note, ed.links)} />}
+        </div>
+      ))}
+    </section>
+
+    <!-- 写作 / 开源 -->
+    <section class="resume-sec">
+      <h2 class="resume-h"><span class="l l-zh">写作 / 开源</span><span class="l l-en">Writing / Open Source</span></h2>
+      {RESUME.writing.map((w) => (
+        <div class="resume-item compact">
+          <span class="ri-role"><a href={w.link} target="_blank" rel="noopener" set:html={bi(w.name)} /></span>
+          <span class="ri-desc-inline" set:html={bi(w.desc)} />
+        </div>
+      ))}
+    </section>
+  </div>
+
+  <script is:inline>
+    // 语言切换：切换容器 data-lang，CSS 控制中英显隐
+    (function () {
+      const root = document.getElementById('resume');
+      const btns = document.querySelectorAll('.ls-btn');
+      function setLang(lang) {
+        root.setAttribute('data-lang', lang);
+        btns.forEach((b) => b.classList.toggle('active', b.dataset.lang === lang));
+        try { localStorage.setItem('resume-lang', lang); } catch (e) {}
+        document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+      }
+      btns.forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
+      let saved = 'zh';
+      try { saved = localStorage.getItem('resume-lang') || 'zh'; } catch (e) {}
+      setLang(saved);
+    })();
+
+    // 下载 PDF：调用浏览器打印（可另存为 PDF），@media print 已优化排版
+    (function () {
+      const btn = document.getElementById('printBtn');
+      if (btn) btn.addEventListener('click', () => window.print());
+    })();
+  </script>
+</Base>
