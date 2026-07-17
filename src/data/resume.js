@@ -52,8 +52,8 @@ export const RESUME = {
       period: '2026.04 – 2026.07',
       bullets: [
         {
-          zh: '转入前端 / 客户端领域探索，参与 Office Mobile SDK（含 iOS）相关研发。',
-          en: 'Explored front-end / client development on the Office Mobile SDK (including iOS).',
+          zh: '转入前端 / 客户端领域探索，参与 Office Mobile SDK（iOS）相关研发。',
+          en: 'Explored front-end / client development — iOS work on the Office Mobile SDK.',
         },
       ],
     },
@@ -63,12 +63,8 @@ export const RESUME = {
       period: '2021 – 2026.04',
       bullets: [
         {
-          zh: '负责邮件 / 文件等场景的用户文件搜索服务，作为平台级横向能力，服务于 Outlook、Teams、Copilot 等覆盖数亿量级用户的 Microsoft 365 产品生态。',
-          en: 'Owned user file search across scenarios such as email and files — a horizontal platform capability serving the Microsoft 365 ecosystem (Outlook, Teams, Copilot) reaching hundreds of millions of users.',
-        },
-        {
-          zh: '构建并维护支持多种内容类型（邮件 / 文件等）的搜索服务，被多个产品复用。',
-          en: 'Built and maintained a search service spanning multiple content types (email, files, …), reused across multiple products.',
+          zh: '负责邮件 / 文件等多种内容类型的用户搜索服务，作为平台级横向能力，服务于 Outlook、Teams、Copilot 等覆盖数亿量级用户的 Microsoft 365 产品生态。',
+          en: 'Owned the user search service across content types such as email and files — a horizontal platform capability serving the Microsoft 365 ecosystem (Outlook, Teams, Copilot) reaching hundreds of millions of users.',
         },
         // TODO: 待补充经官方公开的量化成果（规模 / 性能 / 影响面）。
       ],
@@ -93,10 +89,14 @@ export const RESUME = {
       degree: { zh: '硕士', en: 'M.Sc.' },
       period: '2018',
       note: {
-        zh: '方向：小目标检测 / 计算机视觉；发表论文，配套项目 TIB-Net。',
-        en: 'Focus: small-object detection / computer vision; published paper with companion project TIB-Net.',
+        zh: '方向：小目标检测 / 计算机视觉；发表论文以及配套项目 TIB-Net。获“航空工业杯”第六届国际无人机飞行器创新大赛固定翼竞技赛一等奖。',
+        en: 'Focus: small-object detection / computer vision; published paper with companion project TIB-Net. First Prize, Fixed-Wing Contest, 6th International UAV Innovation Grand Prix (“AVIC Cup”).',
       },
-      links: [{ term: 'TIB-Net', url: 'https://github.com/kyn0v/TIB-Net' }],
+      links: [
+        { term: 'TIB-Net', url: 'https://github.com/kyn0v/TIB-Net' },
+        { term: '“航空工业杯”第六届国际无人机飞行器创新大赛固定翼竞技赛一等奖', url: 'https://nuaa.edu.cn/2018/1105/c852a139821/page.htm' },
+        { term: 'First Prize, Fixed-Wing Contest, 6th International UAV Innovation Grand Prix (“AVIC Cup”)', url: 'https://nuaa.edu.cn/2018/1105/c852a139821/page.htm' },
+      ],
     },
     {
       school: { zh: '武汉理工大学', en: 'Wuhan University of Technology' },
