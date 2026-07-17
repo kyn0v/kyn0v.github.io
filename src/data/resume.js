@@ -87,27 +87,42 @@ export const RESUME = {
     {
       school: { zh: '南京航空航天大学', en: 'Nanjing University of Aeronautics and Astronautics' },
       degree: { zh: '硕士', en: 'M.Sc.' },
-      period: '2018',
+      period: '2018 – 2021',
       note: {
-        zh: '方向：小目标检测 / 计算机视觉；发表论文以及配套项目 TIB-Net。获“航空工业杯”第六届国际无人机飞行器创新大赛固定翼竞技赛一等奖。',
-        en: 'Focus: small-object detection / computer vision; published paper with companion project TIB-Net. First Prize, Fixed-Wing Contest, 6th International UAV Innovation Grand Prix (“AVIC Cup”).',
+        zh: '方向：计算机视觉 - 小目标检测；发表论文以及配套项目 TIB-Net。\n获“航空工业杯”第六届国际无人机飞行器创新大赛固定翼竞技赛一等奖。',
+        en: 'Focus: computer vision - small-object detection; published paper with companion project TIB-Net.\nFirst Prize, Fixed-Wing Contest, 6th International UAV Innovation Grand Prix (“AVIC Cup”).',
       },
       links: [
         { term: 'TIB-Net', url: 'https://github.com/kyn0v/TIB-Net' },
-        { term: '“航空工业杯”第六届国际无人机飞行器创新大赛固定翼竞技赛一等奖', url: 'https://nuaa.edu.cn/2018/1105/c852a139821/page.htm' },
-        { term: 'First Prize, Fixed-Wing Contest, 6th International UAV Innovation Grand Prix (“AVIC Cup”)', url: 'https://nuaa.edu.cn/2018/1105/c852a139821/page.htm' },
+        { term: '航空工业杯', url: 'https://nuaa.edu.cn/2018/1105/c852a139821/page.htm' },
+        { term: 'AVIC Cup', url: 'https://nuaa.edu.cn/2018/1105/c852a139821/page.htm' },
       ],
     },
     {
       school: { zh: '武汉理工大学', en: 'Wuhan University of Technology' },
       degree: { zh: '本科', en: 'B.Eng.' },
-      period: '2014',
-      note: { zh: '', en: '' },
+      period: '2014 – 2018',
+      note: {
+        zh: 'OSDIY 操作系统：阅读《30 天自制操作系统》，使用 C 语言逐步实现一个简单的操作系统。',
+        en: 'OSDIY operating system: built a simple operating system step by step in C while studying 30 Days to Build an OS.',
+      },
+      links: [
+        { term: 'OSDIY', url: 'https://github.com/kyn0v/OSDIY' },
+      ],
     },
   ],
 
-  // —— 精选项目 ——
+  // —— 个人项目 ——
   projects: [
+    {
+      name: 'TIB-Net',
+      tag: { zh: '微型无人机检测网络', en: 'Tiny-drone detection network' },
+      desc: {
+        zh: '硕士期间论文配套代码，迭代式骨干网络用于微型无人机检测。',
+        en: 'Companion code for an M.Sc. paper — an iterative backbone for tiny-drone detection.',
+      },
+      link: 'https://github.com/kyn0v/TIB-Net',
+    },
     {
       name: 'Binwak',
       tag: { zh: '城市漫步 Bingo 小程序', en: 'CityWalk Bingo mini-program' },
@@ -118,36 +133,16 @@ export const RESUME = {
       link: 'https://github.com/kyn0v/Binwak',
     },
     {
-      name: { zh: 'Harness Plugin（进行中）', en: 'Harness Plugin (WIP)' },
-      tag: { zh: '面向长程任务的 Harness 插件', en: 'Harness plugin for long-horizon tasks' },
-      desc: {
-        zh: '正在开发的 Harness 插件，探索 long-horizon task（长程任务）场景。',
-        en: 'An in-progress Harness plugin exploring long-horizon task scenarios.',
-      },
-      link: '',
+      name: { zh: '知乎专栏《CV学习之目标检测》', en: 'Zhihu column: Learning Object Detection' },
+      tag: { zh: '知乎专栏', en: 'Zhihu column' },
+      desc: { zh: '目标检测方向的论文阅读笔记。', en: 'Paper-reading notes on object detection.' },
+      link: 'https://www.zhihu.com/column/c_1022508397446475776',
     },
-    {
-      name: 'TIB-Net',
-      tag: { zh: '微型无人机检测网络', en: 'Tiny-drone detection network' },
-      desc: {
-        zh: '硕士期间论文配套代码，迭代式骨干网络用于微型无人机检测。',
-        en: 'Companion code for an M.Sc. paper — an iterative backbone for tiny-drone detection.',
-      },
-      link: 'https://github.com/kyn0v/TIB-Net',
-    },
-  ],
-
-  // —— 写作 / 开源 ——
-  writing: [
     {
       name: { zh: '知乎专栏《Harness Exploration》', en: 'Zhihu column: Harness Exploration' },
+      tag: { zh: '知乎专栏', en: 'Zhihu column' },
       desc: { zh: '记录 Agent Harness 的学习与思考。', en: 'Notes on learning and exploring Agent Harness.' },
       link: 'https://www.zhihu.com/column/c_2054657432937402668',
-    },
-    {
-      name: { zh: 'GitHub · kyn0v', en: 'GitHub · kyn0v' },
-      desc: { zh: '代码、深度学习、自制 OS 等开源实践。', en: 'Open-source code, deep learning, hobby OS, and more.' },
-      link: 'https://github.com/kyn0v',
     },
   ],
 };

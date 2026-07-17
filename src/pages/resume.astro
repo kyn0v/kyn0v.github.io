@@ -29,6 +29,8 @@ function biLinked(field, links) {
     zh = zh.split(t).join(a);
     en = en.split(t).join(a);
   }
+  zh = zh.replace(/\n/g, '<br>');
+  en = en.replace(/\n/g, '<br>');
   return `<span class="l l-zh">${zh}</span><span class="l l-en">${en}</span>`;
 }
 
@@ -110,9 +112,9 @@ const summary = {
       ))}
     </section>
 
-    <!-- 项目 -->
+    <!-- 个人项目 -->
     <section class="resume-sec">
-      <h2 class="resume-h"><span class="l l-zh">精选项目</span><span class="l l-en">Projects</span></h2>
+      <h2 class="resume-h"><span class="l l-zh">个人项目</span><span class="l l-en">Personal Projects</span></h2>
       {RESUME.projects.map((p) => (
         <div class="resume-item">
           <div class="ri-head">
@@ -145,16 +147,6 @@ const summary = {
       ))}
     </section>
 
-    <!-- 写作 / 开源 -->
-    <section class="resume-sec">
-      <h2 class="resume-h"><span class="l l-zh">写作 / 开源</span><span class="l l-en">Writing / Open Source</span></h2>
-      {RESUME.writing.map((w) => (
-        <div class="resume-item compact">
-          <span class="ri-role"><a href={w.link} target="_blank" rel="noopener" set:html={bi(w.name)} /></span>
-          <span class="ri-desc-inline" set:html={bi(w.desc)} />
-        </div>
-      ))}
-    </section>
   </div>
 
   <script is:inline>
