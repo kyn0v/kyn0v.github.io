@@ -2,6 +2,7 @@
 // 博客（type: "blog"）由 src/content/posts/*.md 自动加入时间线，不在此列。
 export const ENTRIES = [
   // —— 代码项目（来自 github.com/kyn0v 真实仓库，日期为仓库创建时间）——
+  { date: "2026-10-05", type: "code", pinned: true, title: "手环节拍器 · Band Metronome", desc: "基于 Vela JS 的小米手环 9 Pro 离线节拍器，支持 50–250 BPM、击拍测速、多种拍号及振动 / 闪烁提示。AstroBox 投稿已合并。", link: "https://github.com/kyn0v/astrobox-xiaomi-band-metronome" },
   { date: "2026-06-19", type: "code", title: "ghost-among-us · 跨端多人游戏", desc: "基于 uni-app 的跨端多人游戏，client / server 全栈 TypeScript 实现。", link: "https://github.com/kyn0v/ghost-among-us" },
   { date: "2026-05-31", type: "code", pinned: true, title: "Binwak · 城市漫步 Bingo 打卡", desc: "CityWalk Bingo！", link: "https://github.com/kyn0v/Binwak" },
   { date: "2020-08-18", type: "code", pinned: true, title: "TIB-Net · 微型无人机检测网络", desc: "论文配套代码，迭代式骨干网络。", link: "https://github.com/kyn0v/TIB-Net" },
